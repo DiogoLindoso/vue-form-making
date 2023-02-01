@@ -287,6 +287,17 @@ export const advanceComponents = [
       },
       remoteFunc: ''
     }
+  },
+  {
+    type: 'signature',
+    icon: 'icon-ic',
+    options: {
+      defaultValue: '',
+      width: '100%',
+      height: '100%',
+      required: false,
+      disabled: false,
+    }
   }
 ]
 

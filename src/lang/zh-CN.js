@@ -23,7 +23,8 @@ export default {
         table: '子表单',
         grid: '栅格布局',
         tabs: '标签页',
-        divider: '分割线'
+        divider: '分割线',
+        signature: 'Signature',
       },
       basic: {
         title: '基础字段',

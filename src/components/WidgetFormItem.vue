@@ -191,6 +191,13 @@
         <template v-if="element.type == 'text'">
           <span>{{element.options.defaultValue}}</span>
         </template>
+        <template v-if="element.type == 'signature'">
+          <Signature 
+            v-model="element.options.defaultValue"
+            :width="element.options.width" 
+            :height="element.options.height" 
+           />
+        </template>
 
         <div class="widget-view-action" v-if="selectWidget.key == element.key">
           <i class="iconfont icon-icon_clone" @click.stop="handleWidgetClone(index)"></i>
@@ -206,10 +213,12 @@
 
 <script>
 import FmUpload from './Upload'
+import Signature from './Signature.vue'
 export default {
   props: ['element', 'select', 'index', 'data'],
   components: {
     FmUpload,
+    Signature,
   },
   data () {
     return {
