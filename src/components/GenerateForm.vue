@@ -7,31 +7,14 @@
       <template v-for="item in data.list">
 
         <template v-if="item.type == 'grid'">
-          <el-row
+          <grid
             :key="item.key"
             type="flex"
             :gutter="item.options.gutter ? item.options.gutter : 0"
             :justify="item.options.justify"
             :align="item.options.align"
-          >
-            <el-col v-for="(col, colIndex) in item.columns" :key="colIndex" :span="col.span">
-              
-
-              <template v-for="citem in col.list" >
-                <el-form-item v-if="citem.type=='blank'" :label="citem.name" :prop="citem.model" :key="citem.key">
-                  <slot :name="citem.model" :model="models"></slot>
-                </el-form-item>
-                <genetate-form-item v-else 
-                  :key="citem.key" 
-                  :models.sync="models" 
-                  :remote="remote" 
-                  :rules="rules" 
-                  :widget="citem"
-                  @input-change="onInputChange">
-                </genetate-form-item>
-              </template>
-            </el-col>
-          </el-row>
+            :columns="item.columns"
+          />
         </template>
 
         <template v-else-if="item.type == 'blank'">
@@ -59,11 +42,12 @@
 <script>
 import GenetateFormItem from './GenerateFormItem'
 import {loadJs} from '../util/index.js'
-
+import Grid from './Layout/Grid'
 export default {
   name: 'fm-generate-form',
   components: {
-    GenetateFormItem
+    GenetateFormItem,
+    Grid
   },
   props: ['data', 'remote', 'value', 'insite'],
   data () {
