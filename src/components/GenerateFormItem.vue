@@ -206,16 +206,25 @@
     <template v-if="widget.type == 'text'">
       <span>{{dataModel}}</span>
     </template>
+    <template v-if="widget.type == 'signature'">
+      <Signature
+       v-model="dataModel"
+        :width="widget.options.width" 
+        :height="widget.options.height" 
+       />
+    </template>
   </el-form-item>
 </template>
 
 <script>
 import FmUpload from './Upload'
+import Signature from './Signature'
 
 export default {
   props: ['widget', 'models', 'rules', 'remote'],
   components: {
-    FmUpload
+    FmUpload,
+    Signature,
   },
   data () {
     return {

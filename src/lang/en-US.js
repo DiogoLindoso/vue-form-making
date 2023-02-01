@@ -23,7 +23,8 @@ export default {
         table: 'Sub-table',
         grid: 'Grid',
         tabs: 'Tabs',
-        divider: 'Divider'
+        divider: 'Divider',
+        signature: 'Signature',
       },
       basic: {
         title: 'Basic Component',
