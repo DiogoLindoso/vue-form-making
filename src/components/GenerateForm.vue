@@ -10,7 +10,6 @@
           <grid
             :kind="'generate'"
             :key="item.key"
-            :type="'flex'"
             :gutter="item.options.gutter ? item.options.gutter : 0"
             :justify="item.options.justify"
             :align="item.options.align"

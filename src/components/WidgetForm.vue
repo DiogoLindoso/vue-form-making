@@ -18,7 +18,6 @@
                   :data.sync="data"
                   :kind="'widget'"
                   :key="element.key"
-                  :type="'flex'"
                   class="widget-col widget-view"
                   :gutter="element.options.gutter ? element.options.gutter : 0"
                   :justify="element.options.justify"

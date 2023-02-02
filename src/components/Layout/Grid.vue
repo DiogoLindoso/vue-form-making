@@ -2,7 +2,7 @@
   <div>
     <el-row
       v-if="kind == 'generate'"
-      :type="type"
+      type="flex"
       :gutter="gutter"
       :justify="justify"
       :align="align"
@@ -45,41 +45,12 @@
       :align="element.options.align"
       @click.native="handleSelectWidget(index)"
     >
-      <el-col
-        v-for="(col, colIndex) in columns"
-        :key="colIndex"
-        :span="col.span ? col.span : 0"
-      >
-        <draggable
-          v-model="col.list"
-          :no-transition-on-drag="true"
-          v-bind="{
-            group: 'people',
-            ghostClass: 'ghost',
-            animation: 200,
-            handle: '.drag-widget',
-          }"
-          @end="handleMoveEnd"
-          @add="handleWidgetColAdd($event, element, colIndex)"
-        >
-          <transition-group name="fade" tag="div" class="widget-col-list">
-            <template v-for="(el, i) in col.list">
-              <widget-form-item
-                :key="el.key"
-                v-if="el.key"
-                :element="el"
-                :select.sync="selectedWidget"
-                :index="i"
-                :data="col"
-              >
-              </widget-form-item>
-            </template>
-          </transition-group>
-        </draggable>
-      </el-col>
+    <template name="columns">
+
+    </template>
       <div
         class="widget-view-action widget-col-action"
-        v-if="selectedWidget.key == element.key"
+        v-if="select.key == element.key"
       >
         <i
           class="iconfont icon-trash"
@@ -89,7 +60,7 @@
 
       <div
         class="widget-view-drag widget-col-drag"
-        v-if="selectedWidget.key == element.key"
+        v-if="select.key == element.key"
       >
         <i class="iconfont icon-drag drag-widget"></i>
       </div>
@@ -111,7 +82,6 @@ export default {
     "columns",
     "gutter",
     "justify",
-    "type",
     "element",
     "align",
     "select",
@@ -129,6 +99,7 @@ export default {
     },
     selectedWidget: {
       handler(val) {
+        console.log({val});
         this.$emit("update:select", val);
       },
       deep: true,
