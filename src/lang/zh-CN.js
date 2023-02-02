@@ -25,6 +25,7 @@ export default {
         tabs: '标签页',
         divider: '分割线',
         signature: 'Signature',
+        'form-steps': 'Form Steps',
       },
       basic: {
         title: '基础字段',

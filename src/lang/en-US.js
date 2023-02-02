@@ -25,6 +25,7 @@ export default {
         tabs: 'Tabs',
         divider: 'Divider',
         signature: 'Signature',
+        'form-steps': 'Form Steps',
       },
       basic: {
         title: 'Basic Component',

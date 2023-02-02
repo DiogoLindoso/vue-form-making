@@ -222,7 +222,7 @@ export default {
     },
     layoutFields: {
       type: Array,
-      default: () => ['grid']
+      default: () => ['grid', 'form-steps']
     }
   },
   data () {
