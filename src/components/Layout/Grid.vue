@@ -36,18 +36,46 @@
     </el-row>
     <el-row
       class="widget-col widget-view" 
-      v-if="kind == 'generate' && element && element.key"
+      v-if="kind == 'widget' && element && element.key"
       :key="element.key"
       type="flex"
       :class="{ active: selectedWidget.key == element.key }"
       :gutter="element.options.gutter ? element.options.gutter : 0"
       :justify="element.options.justify"
       :align="element.options.align"
-      @click.native="handleSelectWidget(index)"
     >
-    <template name="columns">
-
-    </template>
+    <el-col
+        v-for="(col, colIndex) in columns"
+        :key="colIndex"
+        :span="col.span ? col.span : 0"
+      >
+        <draggable
+          v-model="col.list"
+          :no-transition-on-drag="true"
+          v-bind="{
+            group: 'people',
+            ghostClass: 'ghost',
+            animation: 200,
+            handle: '.drag-widget',
+          }"
+          @end="handleMoveEnd"
+          @add="handleWidgetColAdd($event, element, colIndex)"
+        >
+          <transition-group name="fade" tag="div" class="widget-col-list">
+            <template v-for="(el, i) in col.list">
+              <widget-form-item
+                :key="el.key"
+                v-if="el.key"
+                :element="el"
+                :select.sync="selectedWidget"
+                :index="i"
+                :data="col"
+              >
+              </widget-form-item>
+            </template>
+          </transition-group>
+        </draggable>
+      </el-col>
       <div
         class="widget-view-action widget-col-action"
         v-if="select.key == element.key"
@@ -83,6 +111,7 @@ export default {
     "gutter",
     "justify",
     "element",
+    "index",
     "align",
     "select",
     "data",
@@ -99,7 +128,6 @@ export default {
     },
     selectedWidget: {
       handler(val) {
-        console.log({val});
         this.$emit("update:select", val);
       },
       deep: true,
@@ -108,59 +136,6 @@ export default {
   methods: {
     handleMoveEnd({ newIndex, oldIndex }) {
       console.log("index", newIndex, oldIndex);
-    },
-    handleselectedWidget(index) {
-      console.log(index, "#####");
-      this.selectedWidget = this.data.list[index];
-    },
-    handleWidgetAdd(evt) {
-      console.log("add", evt);
-      console.log("end", evt);
-      const newIndex = evt.newIndex;
-      const to = evt.to;
-      console.log(to);
-
-      //Adiciona uma chave única ao elemento arrastado para o container
-      const key =
-        Date.parse(new Date()) + "_" + Math.ceil(Math.random() * 99999);
-      this.$set(this.data.list, newIndex, {
-        ...this.data.list[newIndex],
-        options: {
-          ...this.data.list[newIndex].options,
-          remoteFunc: "func_" + key,
-        },
-        key,
-        // bind key
-        model: this.data.list[newIndex].type + "_" + key,
-        rules: [],
-      });
-
-      if (
-        this.data.list[newIndex].type === "radio" ||
-        this.data.list[newIndex].type === "checkbox" ||
-        this.data.list[newIndex].type === "select"
-      ) {
-        this.$set(this.data.list, newIndex, {
-          ...this.data.list[newIndex],
-          options: {
-            ...this.data.list[newIndex].options,
-            options: this.data.list[newIndex].options.options.map((item) => ({
-              ...item,
-            })),
-          },
-        });
-      }
-
-      if (this.data.list[newIndex].type === "grid") {
-        this.$set(this.data.list, newIndex, {
-          ...this.data.list[newIndex],
-          columns: this.data.list[newIndex].columns.map((item) => ({
-            ...item,
-          })),
-        });
-      }
-
-      this.selectedWidget = this.data.list[newIndex];
     },
     handleWidgetColAdd($event, row, colIndex) {
       console.log("coladd", $event, row, colIndex);
