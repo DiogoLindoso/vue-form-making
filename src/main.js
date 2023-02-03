@@ -56,7 +56,7 @@ Vue.use(FormMaking, {
 })
 
 Vue.config.productionTip = false
-
+Vue.prototype.$log = console.log;
 new Vue({
   i18n,
   router,
