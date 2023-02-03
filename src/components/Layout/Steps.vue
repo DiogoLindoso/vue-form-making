@@ -57,6 +57,7 @@
                     :gutter="el.options.gutter ? element.options.gutter : 0"
                     :justify="el.options.justify"
                     :align="el.options.align"
+                    :select.sync="selectWidget"
                     :columns="el.columns"
                     :element="stepElement"
                     :index="elStepIndex"
@@ -176,8 +177,12 @@ export default {
         rules: []
       })
 
-      if (this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'radio' || this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'checkbox' || this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'select') {
-        this.$set(this.data.list, newIndex, {
+      if (
+          this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'radio' 
+          || this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'checkbox'
+          || this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'select'
+        ) {
+        this.$set(this.data.list[this.index].steps[this.stepIndex].list, newIndex, {
           ...this.data.list[this.index].steps[this.stepIndex].list[newIndex],
           options: {
             ...this.data.list[this.index].steps[this.stepIndex].list[newIndex].options,
@@ -189,7 +194,7 @@ export default {
       }
 
       if (this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'grid') {
-        this.$set(this.data.list, newIndex, {
+        this.$set(this.data.list[this.index].steps[this.stepIndex].list, newIndex, {
           ...this.data.list[this.index].steps[this.stepIndex].list[newIndex],
           columns: this.data.list[this.index].steps[this.stepIndex].list[newIndex].columns.map(item => ({...item}))
         })
