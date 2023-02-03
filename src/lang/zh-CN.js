@@ -60,6 +60,7 @@ export default {
       confirm: '确 定',
       addOption: '添加选项',
       addColumn: '添加列',
+      addStep: 'Add Step',
       addTab: '添加标签',
       upload: '点击上传',
       add: '添加'
@@ -136,6 +137,7 @@ export default {
         hex: '十六进制',
         gutter: '栅格间隔',
         columnOption: '列配置项',
+        stepOption: 'Step Option',
         span: '栅格值',
         justify: '水平排列方式',
         justifyStart: '左对齐',

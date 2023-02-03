@@ -60,6 +60,7 @@ export default {
       confirm: 'Confirm',
       addOption: 'Add Option',
       addColumn: 'Add Column',
+      addStep: 'Add Step',
       addTab: 'Add Tab',
       upload: 'Upload',
       add: 'Add'
@@ -136,6 +137,7 @@ export default {
         hex: 'Hexadecimal',
         gutter: 'Grid Spacing',
         columnOption: 'Column Configuration',
+        stepOption: 'Step Option',
         span: 'Grid spans',
         justify: 'Horizontal Arrangement',
         justifyStart: 'Start',

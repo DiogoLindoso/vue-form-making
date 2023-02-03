@@ -16,7 +16,7 @@
     </el-steps>
     <template v-if="kind == 'widget' && element && element.key">
       <el-form
-        v-for="(step, stepIndex) in steps"
+        v-for="(stepElement, stepIndex) in steps"
         :key="stepIndex"
         v-show="active === stepIndex"
         type="flex"
@@ -27,7 +27,7 @@
         class="widget-col widget-view"
       >
         <draggable
-          v-model="step.list"
+          v-model="stepElement.list"
           :no-transition-on-drag="true"
           v-bind="{
             group: 'people',
@@ -39,7 +39,7 @@
           @add="handleWidgetAdd"
         >
           <transition-group name="fade" tag="div" class="widget-col-list">
-            <template v-for="(el, i) in step.list">
+            <template v-for="(el, i) in stepElement.list">
               <template v-if="el.type == 'grid'">
                 <grid
                   v-if="el && el.key"
@@ -80,7 +80,7 @@
     >
       <i
         class="iconfont icon-trash"
-        @click.stop="handleWidgetDelete(index, selectStep.index)"
+        @click.stop="handleWidgetDelete(index, stepIndex)"
       ></i>
     </div>
 
@@ -95,7 +95,8 @@
 
 <script>
 import Draggable from "vuedraggable";
-import WidgetFormItem from "../WidgetFormItem.vue";
+import WidgetFormItem from "../WidgetFormItem";
+import Grid from "./Grid"
 export default {
   props: [
     "steps",
@@ -111,6 +112,7 @@ export default {
   components: {
     Draggable,
     WidgetFormItem,
+    Grid,
   },
   data() {
     return {
