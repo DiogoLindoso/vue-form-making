@@ -1,5 +1,6 @@
 <template>
   <div style="padding: 1em">
+    <!-- steps of the form -->
     <el-steps
       v-if="element && element.key"
       :key="element.key"
@@ -14,6 +15,7 @@
       >
       </el-step>
     </el-steps>
+
     <template v-if="kind == 'widget' && element && element.key">
       <el-form
         v-for="(stepElement, stepIndex) in steps"
@@ -24,8 +26,12 @@
         :gutter="element.options.gutter ? element.options.gutter : 0"
         :justify="element.options.justify"
         :align="element.options.align"
-        class="widget-col widget-view"
+        class="widget-form-container"
+        style="position: static"
       >
+        <template v-if="stepElement.list.length==0">
+          <div class="form-empty">{{$t('fm.description.containerEmpty')}}</div>
+        </template>
         <draggable
           v-model="stepElement.list"
           :no-transition-on-drag="true"
@@ -38,34 +44,35 @@
           @end="handleMoveEnd"
           @add="handleWidgetAdd"
         >
-          <transition-group name="fade" tag="div" class="widget-col-list">
-            <template v-for="(el, i) in stepElement.list">
-              <template v-if="el.type == 'grid'">
-                <grid
-                  v-if="el && el.key"
-                  :data.sync="data"
-                  :kind="'widget'"
-                  :key="el.key"
-                  class="widget-col widget-view"
-                  :gutter="el.options.gutter ? element.options.gutter : 0"
-                  :justify="el.options.justify"
-                  :align="el.options.align"
-                  :select.sync="selectWidget"
-                  :columns="el.columns"
-                  :element="el"
-                  :index="index"
-                  @click.native="handleSelectWidget(i, stepIndex)"
-                />
-              </template>
-              <template v-else>
-                <widget-form-item
-                  v-if="el && el.key"
-                  :key="el.key"
-                  :element="el"
-                  :select.sync="selectWidget"
-                  :index="index"
-                  :data="el"
-                ></widget-form-item>
+          <transition-group name="fade" tag="div" class="widget-form-list">
+            <template v-if="stepElement.list.length">
+              <template v-for="(el, elStepIndex) in stepElement.list">
+                <template v-if="el.type == 'grid'">
+                  <grid
+                    v-if="el && el.key"
+                    :data.sync="data"
+                    :kind="'widget'"
+                    :key="el.key"
+                    class="widget-col widget-view"
+                    :gutter="el.options.gutter ? element.options.gutter : 0"
+                    :justify="el.options.justify"
+                    :align="el.options.align"
+                    :columns="el.columns"
+                    :element="stepElement"
+                    :index="elStepIndex"
+                    @click.native="handleSelectWidget(index, stepIndex, elStepIndex)"
+                  />
+                </template>
+                <template v-else>
+                  <widget-form-item
+                    v-if="el && el.key"
+                    :key="el.key"
+                    :element="el"
+                    :select.sync="selectWidget"
+                    :index="elStepIndex"
+                    :data="stepElement"
+                  ></widget-form-item>
+                </template>
               </template>
             </template>
           </transition-group>
@@ -80,7 +87,7 @@
     >
       <i
         class="iconfont icon-trash"
-        @click.stop="handleWidgetDelete(index, stepIndex)"
+        @click.stop="handleWidgetDelete(index)"
       ></i>
     </div>
 
@@ -119,7 +126,8 @@ export default {
       active: 0,
       selectWidget: this.select,
       step: '',
-      stepIndex:0,
+      stepIndex: 0,
+      elStepIndex: null,
     };
   },
   watch: {
@@ -137,83 +145,81 @@ export default {
         this.$emit("update:select", val);
       },
       deep: true,
+    },
+    active(val){
+      this.stepIndex = val;
     }
   },
   methods: {
     handleMoveEnd({ newIndex, oldIndex }) {
       console.log("index", newIndex, oldIndex);
     },
-    handleWidgetAdd(evt) {
-      console.log("add", evt);
-      console.log("end", evt);
-      const newIndex = evt.newIndex;
-      const to = evt.to;
-      console.log(to);
-
+    handleWidgetAdd (evt) {
+      console.log('add', evt)
+      console.log('end', evt)
+      console.log({evt, stepIndex: this.stepIndex, elStepIndex: this.elStepIndex});
+      const newIndex = evt.newIndex
+      const to = evt.to
+      console.log(to)
+      
       //为拖拽到容器的元素添加唯一 key
-      const key =
-        Date.parse(new Date()) + "_" + Math.ceil(Math.random() * 99999);
-      this.$set(this.steps[this.stepIndex], newIndex, {
-        ...this.steps[this.stepIndex].list[newIndex],
+      const key = Date.parse(new Date()) + '_' + Math.ceil(Math.random() * 99999)
+      this.$set(this.data.list[this.index].steps[this.stepIndex].list, newIndex, {
+        ...this.data.list[this.index].steps[this.stepIndex].list[newIndex],
         options: {
-          ...this.steps[this.stepIndex].list[newIndex].options,
-          remoteFunc: "func_" + key,
+          ...this.data.list[this.index].steps[this.stepIndex].list[newIndex].options,
+          remoteFunc: 'func_' + key
         },
         key,
         // 绑定键值
-        model: this.data.list[newIndex].type + "_" + key,
-        rules: [],
-      });
+        model: this.data.list[this.index].steps[this.stepIndex].list[newIndex].type + '_' + key,
+        rules: []
+      })
 
-      if (
-        this.steps[this.stepIndex].list[newIndex].type === "radio" ||
-        this.steps[this.stepIndex].list[newIndex].type === "checkbox" ||
-        this.steps[this.stepIndex].list[newIndex].type === "select"
-      ) {
-        this.$set(this.steps[this.stepIndex].list, newIndex, {
-          ...this.steps[this.stepIndex].list[newIndex],
+      if (this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'radio' || this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'checkbox' || this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'select') {
+        this.$set(this.data.list, newIndex, {
+          ...this.data.list[this.index].steps[this.stepIndex].list[newIndex],
           options: {
-            ...this.steps[this.stepIndex].list[newIndex].options,
-            options: this.steps[this.stepIndex].list[newIndex].options.options.map((item) => ({
-              ...item,
-            })),
-          },
-        });
+            ...this.data.list[this.index].steps[this.stepIndex].list[newIndex].options,
+            options: this.data.list[this.index].steps[this.stepIndex].list[newIndex].options.options.map(item => ({
+              ...item
+            }))
+          }
+        })
       }
 
-      if (this.steps[this.stepIndex].list[newIndex].type === "grid") {
-        this.$set(this.steps[this.stepIndex].list, newIndex, {
-          ...this.steps[this.stepIndex].list[newIndex],
-          columns: this.steps[this.stepIndex].list[newIndex].columns.map((item) => ({
-            ...item,
-          })),
-        });
+      if (this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'grid') {
+        this.$set(this.data.list, newIndex, {
+          ...this.data.list[this.index].steps[this.stepIndex].list[newIndex],
+          columns: this.data.list[this.index].steps[this.stepIndex].list[newIndex].columns.map(item => ({...item}))
+        })
       }
 
-      this.selectWidget = this.steps[this.stepIndex].list[newIndex];
+      this.selectWidget = this.data.list[this.index].steps[this.stepIndex].list[newIndex]
     },
-    handleSelectWidget(index, stepIndex) {
-      console.log({index, stepIndex}, "#####");
+    handleSelectWidget(index, stepIndex, elStepIndex) {
+      console.log({index,elStepIndex, stepIndex}, "#####");
       this.stepIndex = stepIndex;
-      this.selectWidget = this.steps[stepIndex].list[index];
+      this.elStepIndex= elStepIndex;
+      this.selectWidget = this.data.list[index].steps[stepIndex].list[elStepIndex];
     },
-    handleWidgetDelete(index, stepIndex) {
-      if (this.steps[stepIndex].list.length - 1 === index) {
+    handleWidgetDelete(index) {
+      if (this.data.list.length - 1 === index) {
         if (index === 0) {
-          this.selectWidget = {};
+          this.selectedWidget = {};
         } else {
-          this.selectWidget = this.steps[stepIndex].list[index - 1];
+          this.selectedWidget = this.data.list[index - 1];
         }
       } else {
-        this.selectWidget = this.steps[stepIndex].list[index + 1];
+        this.selectedWidget = this.data.list[index + 1];
       }
 
       this.$nextTick(() => {
-        this.steps[stepIndex].list.splice(index, 1);
+        this.data.list.splice(index, 1);
       });
     },
     next() {
-      if (this.active++ > this.steps.length -1) this.active = 0;
+      if (this.active++ >= this.data.list[this.index].steps.length -1) this.active = 0;
     },
   },
 };
