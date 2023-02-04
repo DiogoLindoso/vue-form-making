@@ -337,7 +337,10 @@ export const layoutComponents = [
     options: {
       gutter: 0,
       justify: 'start',
-      align: 'top'
+      align: 'top',
+      alignCenter: true,
+      simple: false,
+      space: '',
     }
   }
 ]

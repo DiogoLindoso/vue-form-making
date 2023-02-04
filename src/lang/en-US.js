@@ -180,6 +180,7 @@ export default {
         validatorPattern: 'Unmatched pattern',
         showWordLimit: 'Show word limit',
         maxlength: 'Max length',
+        simple: 'Simple',
       }
     },
     upload: {

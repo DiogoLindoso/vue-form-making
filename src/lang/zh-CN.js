@@ -180,6 +180,7 @@ export default {
         validatorPattern: '格式不匹配',
         showWordLimit: '显示字数统计',
         maxlength: '最大字数',
+        simple: 'Simple',
       }
     },
     upload: {

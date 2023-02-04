@@ -328,20 +328,10 @@
           </div>
         </el-form-item>
         <el-form-item :label="$t('fm.config.widget.justify')">
-          <el-select v-model="data.options.justify">
-            <el-option value="start" :label="$t('fm.config.widget.justifyStart')"></el-option>
-            <el-option value="end" :label="$t('fm.config.widget.justifyEnd')"></el-option>
-            <el-option value="center" :label="$t('fm.config.widget.justifyCenter')"></el-option>
-            <el-option value="space-around" :label="$t('fm.config.widget.justifySpaceAround')"></el-option>
-            <el-option value="space-between" :label="$t('fm.config.widget.justifySpaceBetween')"></el-option>
-          </el-select>
+          <el-switch v-model="data.options.alignCenter"/>
         </el-form-item>
-        <el-form-item :label="$t('fm.config.widget.align')">
-          <el-select v-model="data.options.align">
-            <el-option value="top" :label="$t('fm.config.widget.alignTop')"></el-option>
-            <el-option value="middle" :label="$t('fm.config.widget.alignMiddle')"></el-option>
-            <el-option value="bottom" :label="$t('fm.config.widget.alignBottom')"></el-option>
-          </el-select>
+        <el-form-item :label="$t('fm.config.widget.simple')">
+          <el-switch v-model="data.options.simple"/>
         </el-form-item>
       </template>
 

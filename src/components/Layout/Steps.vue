@@ -5,9 +5,11 @@
       <el-steps
         v-if="element && element.key"
         :key="element.key"
-        :space="200"
+        :space="space"
         :active="active"
         finish-status="success"
+        :simple="simple"
+        :align-center="alignCenter"
       >
         <el-step
           v-for="(step, stepIndex) in steps"
@@ -104,9 +106,11 @@
     <template v-if="kind == 'generate'">
       <!-- steps of the form -->
       <el-steps
-        :space="200"
+        :space="space"
         :active="active"
         finish-status="success"
+        :simple="simple"
+        :align-center="alignCenter"
       >
         <el-step
           v-for="(step, stepIndex) in steps"
@@ -168,6 +172,9 @@ export default {
     "select",
     "data",
     "kind",
+    "alignCenter",
+    "simple",
+    "space",
   ],
   components: {
     Draggable,
