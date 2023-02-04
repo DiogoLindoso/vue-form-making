@@ -12,6 +12,7 @@
         v-for="(step, stepIndex) in steps"
         :title="step.title"
         :key="stepIndex"
+        @click.native="active = stepIndex"
       >
       </el-step>
     </el-steps>
@@ -50,7 +51,7 @@
                 <template v-if="el.type == 'grid'">
                   <grid
                     v-if="el && el.key"
-                    :data.sync="data"
+                    :data="stepElement"
                     :kind="'widget'"
                     :key="el.key"
                     class="widget-col widget-view"
@@ -59,9 +60,9 @@
                     :align="el.options.align"
                     :select.sync="selectWidget"
                     :columns="el.columns"
-                    :element="stepElement"
+                    :element="el"
                     :index="elStepIndex"
-                    @click.native="handleSelectWidget(index, stepIndex, elStepIndex)"
+                    @click.native.stop="handleSelectWidget(index, stepIndex, elStepIndex)"
                   />
                 </template>
                 <template v-else>
@@ -203,7 +204,7 @@ export default {
       this.selectWidget = this.data.list[this.index].steps[this.stepIndex].list[newIndex]
     },
     handleSelectWidget(index, stepIndex, elStepIndex) {
-      console.log({index,elStepIndex, stepIndex}, "#####");
+      console.log({index, stepIndex, elStepIndex}, "#####");
       this.stepIndex = stepIndex;
       this.elStepIndex= elStepIndex;
       this.selectWidget = this.data.list[index].steps[stepIndex].list[elStepIndex];

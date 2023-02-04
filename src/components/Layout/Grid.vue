@@ -95,6 +95,7 @@
     </el-row>
   </div>
 </template>
+
 <script>
 import Draggable from "vuedraggable";
 import GenerateFormItem from "../GenerateFormItem";
