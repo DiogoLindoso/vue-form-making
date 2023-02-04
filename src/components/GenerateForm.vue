@@ -17,6 +17,20 @@
           />
         </template>
 
+        <template v-else-if="item.type == 'form-steps'">
+          <steps
+            :kind="'generate'"
+            :key="item.key"
+            :gutter="item.options.gutter ? item.options.gutter : 0"
+            :justify="item.options.justify"
+            :align="item.options.align"
+            :steps="item.steps"
+            :simple="item.options.simple"
+            :alignCenter="item.options.alignCenter"
+            :space="item.options.space"
+          />
+        </template>
+
         <template v-else-if="item.type == 'blank'">
           <el-form-item :label="item.name" :prop="item.model" :key="item.key">
             <slot :name="item.model" :model="models"></slot>
@@ -43,11 +57,13 @@
 import GenetateFormItem from './GenerateFormItem'
 import {loadJs} from '../util/index.js'
 import Grid from './Layout/Grid'
+import Steps from './Layout/Steps'
 export default {
   name: 'fm-generate-form',
   components: {
     GenetateFormItem,
-    Grid
+    Grid,
+    Steps,
   },
   props: ['data', 'remote', 'value', 'insite'],
   data () {

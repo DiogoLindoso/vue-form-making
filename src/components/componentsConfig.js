@@ -320,5 +320,27 @@ export const layoutComponents = [
       justify: 'start',
       align: 'top'
     }
+  },
+  {
+    type: 'form-steps',
+    icon: 'icon-tabs',
+    steps:[
+      {
+        title: 'step 1',
+        list:[]
+      },
+      {
+        title: 'step 2',
+        list:[]
+      },
+    ],
+    options: {
+      gutter: 0,
+      justify: 'start',
+      align: 'top',
+      alignCenter: true,
+      simple: false,
+      space: '',
+    }
   }
 ]

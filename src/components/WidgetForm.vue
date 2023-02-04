@@ -29,6 +29,26 @@
                   @click.native="handleSelectWidget(index)"
                 />
             </template>
+            <template v-else-if="element.type == 'form-steps'">
+              <steps
+                v-if="element && element.key"
+                :data.sync="data"
+                :kind="'widget'"
+                :key="element.key"
+                class="widget-col widget-view"
+                :gutter="element.options.gutter ? element.options.gutter : 0"
+                :justify="element.options.justify"
+                :align="element.options.align"
+                :select.sync="selectWidget"
+                :steps="element.steps"
+                :element="element"
+                :index="index"
+                @click.native="handleSelectWidget(index)"
+                :simple="element.options.simple"
+                :alignCenter="element.options.alignCenter"
+                :space="element.options.space"
+              />
+            </template>
             <template v-else>
               <widget-form-item v-if="element && element.key"  :key="element.key" :element="element" :select.sync="selectWidget" :index="index" :data="data"></widget-form-item>
             </template>
@@ -43,11 +63,13 @@
 import Draggable from 'vuedraggable'
 import WidgetFormItem from './WidgetFormItem'
 import Grid from './Layout/Grid'
+import Steps from './Layout/Steps'
 export default {
   components: {
     Draggable,
     WidgetFormItem,
     Grid,
+    Steps,
   },
   props: ['data', 'select'],
   data () {
