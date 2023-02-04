@@ -25,6 +25,9 @@
             :justify="item.options.justify"
             :align="item.options.align"
             :steps="item.steps"
+            :simple="item.options.simple"
+            :alignCenter="item.options.alignCenter"
+            :space="item.options.space"
           />
         </template>
 

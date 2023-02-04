@@ -44,6 +44,9 @@
                 :element="element"
                 :index="index"
                 @click.native="handleSelectWidget(index)"
+                :simple="element.options.simple"
+                :alignCenter="element.options.alignCenter"
+                :space="element.options.space"
               />
             </template>
             <template v-else>

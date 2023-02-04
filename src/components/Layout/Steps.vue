@@ -2,6 +2,7 @@
   <div style="padding: 1em">
     <template v-if="kind == 'widget'" >
       <!-- steps of the form -->
+      {{$log({simple,alignCenter,space})  }}
       <el-steps
         v-if="element && element.key"
         :key="element.key"
