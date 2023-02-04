@@ -1,104 +1,154 @@
 <template>
   <div style="padding: 1em">
-    <!-- steps of the form -->
-    <el-steps
-      v-if="element && element.key"
-      :key="element.key"
-      :space="200"
-      :active="active"
-      finish-status="success"
-    >
-      <el-step
-        v-for="(step, stepIndex) in steps"
-        :title="step.title"
-        :key="stepIndex"
-        @click.native="active = stepIndex"
+    <template v-if="kind == 'widget'" >
+      <!-- steps of the form -->
+      <el-steps
+        v-if="element && element.key"
+        :key="element.key"
+        :space="200"
+        :active="active"
+        finish-status="success"
       >
-      </el-step>
-    </el-steps>
-
-    <template v-if="kind == 'widget' && element && element.key">
+        <el-step
+          v-for="(step, stepIndex) in steps"
+          :title="step.title"
+          :key="stepIndex"
+          @click.native="active = stepIndex"
+        >
+        </el-step>
+      </el-steps>
+      <!-- step content -->
+      <template v-if="element && element.key">
+        <el-form
+          v-for="(stepElement, stepIndex) in steps"
+          :key="stepIndex"
+          v-show="active === stepIndex"
+          type="flex"
+          :class="{ active: selectWidget.key == element.key }"
+          :gutter="element.options.gutter ? element.options.gutter : 0"
+          :justify="element.options.justify"
+          :align="element.options.align"
+          class="widget-form-container"
+          style="position: static"
+        >
+          <template v-if="stepElement.list.length==0">
+            <div class="form-empty">{{$t('fm.description.containerEmpty')}}</div>
+          </template>
+          <draggable
+            v-model="stepElement.list"
+            :no-transition-on-drag="true"
+            v-bind="{
+              group: 'people',
+              ghostClass: 'ghost',
+              animation: 200,
+              handle: '.drag-widget',
+            }"
+            @end="handleMoveEnd"
+            @add="handleWidgetAdd"
+          >
+            <transition-group name="fade" tag="div" class="widget-form-list">
+              <template v-if="stepElement.list.length">
+                <template v-for="(el, elStepIndex) in stepElement.list">
+                  <template v-if="el.type == 'grid'">
+                    <grid
+                      v-if="el && el.key"
+                      :data="stepElement"
+                      :kind="'widget'"
+                      :key="el.key"
+                      class="widget-col widget-view"
+                      :gutter="el.options.gutter ? element.options.gutter : 0"
+                      :justify="el.options.justify"
+                      :align="el.options.align"
+                      :select.sync="selectWidget"
+                      :columns="el.columns"
+                      :element="el"
+                      :index="elStepIndex"
+                      @click.native.stop="handleSelectWidget(index, stepIndex, elStepIndex)"
+                    />
+                  </template>
+                  <template v-else>
+                    <widget-form-item
+                      v-if="el && el.key"
+                      :key="el.key"
+                      :element="el"
+                      :select.sync="selectWidget"
+                      :index="elStepIndex"
+                      :data="stepElement"
+                    ></widget-form-item>
+                  </template>
+                </template>
+              </template>
+            </transition-group>
+          </draggable>
+        </el-form>
+      </template>
+      <el-button style="margin-top: 12px" @click="next">Próximo</el-button>
+  
+      <div
+        class="widget-view-action widget-col-action"
+        v-if="select.key == element.key"
+      >
+        <i
+          class="iconfont icon-trash"
+          @click.stop="handleWidgetDelete(index)"
+        ></i>
+      </div>
+  
+      <div
+        class="widget-view-drag widget-col-drag"
+        v-if="select.key == element.key"
+      >
+        <i class="iconfont icon-drag drag-widget"></i>
+      </div>
+    </template>
+    <template v-if="kind == 'generate'">
+      <!-- steps of the form -->
+      <el-steps
+        :space="200"
+        :active="active"
+        finish-status="success"
+      >
+        <el-step
+          v-for="(step, stepIndex) in steps"
+          :title="step.title"
+          :key="stepIndex"
+        >
+        </el-step>
+      </el-steps>
+      <!-- step content -->
       <el-form
         v-for="(stepElement, stepIndex) in steps"
         :key="stepIndex"
         v-show="active === stepIndex"
         type="flex"
-        :class="{ active: selectWidget.key == element.key }"
-        :gutter="element.options.gutter ? element.options.gutter : 0"
-        :justify="element.options.justify"
-        :align="element.options.align"
-        class="widget-form-container"
         style="position: static"
       >
-        <template v-if="stepElement.list.length==0">
-          <div class="form-empty">{{$t('fm.description.containerEmpty')}}</div>
+        <template v-for="el in stepElement.list">
+          <template v-if="el.type == 'grid'">
+            <grid
+              :kind="'generate'"
+              :key="el.key"
+              :gutter="el.options.gutter ? el.options.gutter : 0"
+              :justify="el.options.justify"
+              :align="el.options.align"
+              :columns="el.columns"
+            />
+          </template>
+          <template v-else>
+            <generate-form-item
+              :key="el.key"
+              :models.sync="models"
+              :rules="rules"
+              :widget="el" 
+              :select.sync="selectWidget"
+              @input-change="onInputChange"
+              :remote="el.remote"
+            />
+          </template>
         </template>
-        <draggable
-          v-model="stepElement.list"
-          :no-transition-on-drag="true"
-          v-bind="{
-            group: 'people',
-            ghostClass: 'ghost',
-            animation: 200,
-            handle: '.drag-widget',
-          }"
-          @end="handleMoveEnd"
-          @add="handleWidgetAdd"
-        >
-          <transition-group name="fade" tag="div" class="widget-form-list">
-            <template v-if="stepElement.list.length">
-              <template v-for="(el, elStepIndex) in stepElement.list">
-                <template v-if="el.type == 'grid'">
-                  <grid
-                    v-if="el && el.key"
-                    :data="stepElement"
-                    :kind="'widget'"
-                    :key="el.key"
-                    class="widget-col widget-view"
-                    :gutter="el.options.gutter ? element.options.gutter : 0"
-                    :justify="el.options.justify"
-                    :align="el.options.align"
-                    :select.sync="selectWidget"
-                    :columns="el.columns"
-                    :element="el"
-                    :index="elStepIndex"
-                    @click.native.stop="handleSelectWidget(index, stepIndex, elStepIndex)"
-                  />
-                </template>
-                <template v-else>
-                  <widget-form-item
-                    v-if="el && el.key"
-                    :key="el.key"
-                    :element="el"
-                    :select.sync="selectWidget"
-                    :index="elStepIndex"
-                    :data="stepElement"
-                  ></widget-form-item>
-                </template>
-              </template>
-            </template>
-          </transition-group>
-        </draggable>
       </el-form>
+      <el-button style="margin-top: 12px" @click="next">Próximo</el-button>
     </template>
-    <el-button style="margin-top: 12px" @click="next">Próximo</el-button>
-
-    <div
-      class="widget-view-action widget-col-action"
-      v-if="select.key == element.key"
-    >
-      <i
-        class="iconfont icon-trash"
-        @click.stop="handleWidgetDelete(index)"
-      ></i>
-    </div>
-
-    <div
-      class="widget-view-drag widget-col-drag"
-      v-if="select.key == element.key"
-    >
-      <i class="iconfont icon-drag drag-widget"></i>
-    </div>
   </div>
 </template>
 
@@ -106,6 +156,7 @@
 import Draggable from "vuedraggable";
 import WidgetFormItem from "../WidgetFormItem";
 import Grid from "./Grid"
+import GenerateFormItem from "../GenerateFormItem";
 export default {
   props: [
     "steps",
@@ -122,6 +173,7 @@ export default {
     Draggable,
     WidgetFormItem,
     Grid,
+    GenerateFormItem,
   },
   data() {
     return {
@@ -130,6 +182,8 @@ export default {
       step: '',
       stepIndex: 0,
       elStepIndex: null,
+      models: {},
+      rules: {}
     };
   },
   watch: {
@@ -224,8 +278,16 @@ export default {
         this.data.list.splice(index, 1);
       });
     },
+    onInputChange (value, field) {
+      this.$emit('on-change', field, value, this.models)
+    },
     next() {
-      if (this.active++ >= this.data.list[this.index].steps.length -1) this.active = 0;
+      if (this.kind == 'widget') {
+        if (this.active++ >= this.data.list[this.index].steps.length -1) this.active = 0;
+      }
+      else{
+        if (this.active++ >= this.steps.length -1) this.active = 0;
+      }
     },
   },
 };

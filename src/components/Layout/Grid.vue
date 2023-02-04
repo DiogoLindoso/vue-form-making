@@ -121,6 +121,9 @@ export default {
   data: function () {
     return {
       selectedWidget: this.select,
+      models: {},
+      rules: {},
+      remote:{}
     };
   },
   watch: {
@@ -210,6 +213,9 @@ export default {
       this.$nextTick(() => {
         this.data.list.splice(index, 1);
       });
+    },
+    onInputChange (value, field) {
+      this.$emit('on-change', field, value, this.models)
     },
   },
 };
