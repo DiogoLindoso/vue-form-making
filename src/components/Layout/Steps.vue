@@ -2,7 +2,6 @@
   <div style="padding: 1em">
     <template v-if="kind == 'widget'" >
       <!-- steps of the form -->
-      {{$log({simple,alignCenter,space})  }}
       <el-steps
         v-if="element && element.key"
         :key="element.key"
@@ -145,7 +144,6 @@
               :models.sync="models"
               :rules="rules"
               :widget="el" 
-              :select.sync="selectWidget"
               @input-change="onInputChange"
               :remote="el.remote"
             />
@@ -221,49 +219,49 @@ export default {
     handleWidgetAdd (evt) {
       console.log('add', evt)
       console.log('end', evt)
-      console.log({evt, stepIndex: this.stepIndex, elStepIndex: this.elStepIndex});
       const newIndex = evt.newIndex
+      const newElement = this.data.list[this.index].steps[this.stepIndex].list[newIndex];
       const to = evt.to
       console.log(to)
-      
+
       //为拖拽到容器的元素添加唯一 key
       const key = Date.parse(new Date()) + '_' + Math.ceil(Math.random() * 99999)
       this.$set(this.data.list[this.index].steps[this.stepIndex].list, newIndex, {
-        ...this.data.list[this.index].steps[this.stepIndex].list[newIndex],
+        ...newElement,
         options: {
-          ...this.data.list[this.index].steps[this.stepIndex].list[newIndex].options,
+          ...newElement.options,
           remoteFunc: 'func_' + key
         },
         key,
         // 绑定键值
-        model: this.data.list[this.index].steps[this.stepIndex].list[newIndex].type + '_' + key,
+        model: newElement.type + '_' + key,
         rules: []
       })
 
       if (
-          this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'radio' 
-          || this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'checkbox'
-          || this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'select'
+          newElement.type === 'radio' 
+          || newElement.type === 'checkbox'
+          || newElement.type === 'select'
         ) {
         this.$set(this.data.list[this.index].steps[this.stepIndex].list, newIndex, {
-          ...this.data.list[this.index].steps[this.stepIndex].list[newIndex],
+          ...newElement,
           options: {
-            ...this.data.list[this.index].steps[this.stepIndex].list[newIndex].options,
-            options: this.data.list[this.index].steps[this.stepIndex].list[newIndex].options.options.map(item => ({
+            ...newElement.options,
+            options: newElement.options.options.map(item => ({
               ...item
             }))
           }
         })
       }
 
-      if (this.data.list[this.index].steps[this.stepIndex].list[newIndex].type === 'grid') {
+      if (newElement.type === 'grid') {
         this.$set(this.data.list[this.index].steps[this.stepIndex].list, newIndex, {
-          ...this.data.list[this.index].steps[this.stepIndex].list[newIndex],
-          columns: this.data.list[this.index].steps[this.stepIndex].list[newIndex].columns.map(item => ({...item}))
+          ...newElement,
+          columns: newElement.columns.map(item => ({...item}))
         })
       }
 
-      this.selectWidget = this.data.list[this.index].steps[this.stepIndex].list[newIndex]
+      this.selectWidget = newElement
     },
     handleSelectWidget(index, stepIndex, elStepIndex) {
       console.log({index, stepIndex, elStepIndex}, "#####");
