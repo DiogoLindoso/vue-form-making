@@ -1,5 +1,10 @@
 <template>
-  <el-form-item :label="widget.name" :prop="widget.model">
+  <el-form-item
+    :rules="widget.rules"
+    :prop="widget.prop || widget.model"
+    :label-width="hiddenLabel ? '0' : ''"
+    :label="hiddenLabel ? '': widget.name"
+  >
     <template v-if="widget.type == 'input'" >
       <el-input
         v-if="widget.options.dataType == 'number' || widget.options.dataType == 'integer' || widget.options.dataType == 'float'"
@@ -221,7 +226,7 @@ import FmUpload from './Upload'
 import Signature from './Signature'
 
 export default {
-  props: ['widget', 'models', 'rules', 'remote'],
+  props: ['widget', 'models', 'rules', 'remote', 'hiddenLabel'],
   components: {
     FmUpload,
     Signature,
