@@ -218,7 +218,7 @@ export default {
     },
     advanceFields: {
       type: Array,
-      default: () => ['blank', 'imgupload', 'editor', 'cascader', 'signature']
+      default: () => ['blank', 'imgupload', 'editor', 'cascader', 'signature', 'multipleinput']
     },
     layoutFields: {
       type: Array,
