@@ -138,6 +138,13 @@
               :columns="el.columns"
             />
           </template>
+          <template v-else-if="el.type == 'multipleinput'">
+          <multiple-input-render
+            :key="el.key"
+            :widget.sync="el"
+            v-model="models[el.model]"
+          />
+        </template>
           <template v-else>
             <generate-form-item
               :key="el.key"
@@ -160,6 +167,8 @@ import Draggable from "vuedraggable";
 import WidgetFormItem from "../WidgetFormItem";
 import Grid from "./Grid"
 import GenerateFormItem from "../GenerateFormItem";
+import MultipleInputRender from '../MultipleInput/render'
+
 export default {
   props: [
     "steps",
@@ -180,6 +189,7 @@ export default {
     WidgetFormItem,
     Grid,
     GenerateFormItem,
+    MultipleInputRender
   },
   data() {
     return {
