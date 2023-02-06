@@ -2,7 +2,8 @@
   <el-form-item class="widget-view "
       v-if="element && element.key"
       :class="{active: selectWidget.key == element.key, 'is_req': element.options.required}"
-      :label="element.name"
+      :label="showLabel ? element.name : ''"
+      :label-width="showLabel ? '': '0'"
       @click.native.stop="handleSelectWidget(index)"
     >
         <template v-if="element.type == 'input'">
@@ -199,6 +200,13 @@
            />
         </template>
 
+        <template v-else-if="element.type == 'multipleinput'">
+          <multiple-input-render 
+            :widget.sync="element"
+            :select.sync="selectWidget"
+          />
+        </template>
+
         <div class="widget-view-action" v-if="selectWidget.key == element.key">
           <i class="iconfont icon-icon_clone" @click.stop="handleWidgetClone(index)"></i>
           <i class="iconfont icon-trash" @click.stop="handleWidgetDelete(index)"></i>
@@ -214,11 +222,14 @@
 <script>
 import FmUpload from './Upload'
 import Signature from './Signature.vue'
+import MultipleInputRender from './MultipleInput/render.vue';
+
 export default {
   props: ['element', 'select', 'index', 'data'],
   components: {
     FmUpload,
     Signature,
+    MultipleInputRender
   },
   data () {
     return {
@@ -277,6 +288,11 @@ export default {
         this.selectWidget = this.data.list[index + 1]
       })
     },
+  },
+  computed: {
+    showLabel() {
+      return this.element.type != 'multipleinput';
+    }
   },
   watch: {
     select (val) {
