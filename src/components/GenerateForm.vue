@@ -37,6 +37,14 @@
           </el-form-item>
         </template>
 
+        <template v-else-if="item.type == 'multipleinput'">
+          <multiple-input-render
+            :key="item.key"
+            :widget.sync="item"
+            v-model="models[item.model]"
+          />
+        </template>
+
         <template v-else>
           <genetate-form-item 
             :key="item.key" 
@@ -58,12 +66,15 @@ import GenetateFormItem from './GenerateFormItem'
 import {loadJs} from '../util/index.js'
 import Grid from './Layout/Grid'
 import Steps from './Layout/Steps'
+import MultipleInputRender from './MultipleInput/render'
+
 export default {
   name: 'fm-generate-form',
   components: {
     GenetateFormItem,
     Grid,
     Steps,
+    MultipleInputRender
   },
   props: ['data', 'remote', 'value', 'insite'],
   data () {
