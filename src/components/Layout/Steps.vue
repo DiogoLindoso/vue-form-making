@@ -47,6 +47,7 @@
             }"
             @end="handleMoveEnd"
             @add="handleWidgetAdd"
+            @change="onChange"
           >
             <transition-group name="fade" tag="div" class="widget-form-list">
               <template v-if="stepElement.list.length">
@@ -233,6 +234,11 @@ export default {
     }
   },
   methods: {
+    onChange({added}){
+      const {element, newIndex} = added;
+      if (element.type == 'form-steps') 
+        this.widgetDelete(newIndex);
+    },
     handleMoveEnd({ newIndex, oldIndex }) {
       console.log("index", newIndex, oldIndex);
     },
@@ -302,6 +308,22 @@ export default {
 
       this.$nextTick(() => {
         this.data.list.splice(index, 1);
+      });
+    },
+    widgetDelete(elStepIndex) {
+      const step = this.data.list[this.index].steps[this.stepIndex]
+      if (step.list.length - 1 === elStepIndex) {
+        if (elStepIndex === 0) {
+          this.selectedWidget = {};
+        } else {
+          this.selectedWidget = step.list[elStepIndex - 1];
+        }
+      } else {
+        this.selectedWidget = step.list[elStepIndex + 1];
+      }
+
+      this.$nextTick(() => {
+        step.list.splice(elStepIndex, 1);
       });
     },
     onInputChange (value, field) {
