@@ -369,16 +369,22 @@
           </div>
         </el-form-item>
       </template>
+
+      <template v-if="data.type == 'multipleinput'">
+        <multiple-input-config :data.sync="data"/>
+      </template>
     </el-form>
   </div>
 </template>
 
 <script>
 import Draggable from 'vuedraggable'
+import MultipleInputConfig from './MultipleInput/config';
 
 export default {
   components: {
-    Draggable
+    Draggable,
+    MultipleInputConfig
   },
   props: ['data'],
   data () {
