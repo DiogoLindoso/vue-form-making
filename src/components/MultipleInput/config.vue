@@ -29,6 +29,7 @@
             @change="value => handleSelectTypeColumn(column, value)"
           >
             <el-option
+              :key="index"
               v-if="component.type != 'textarea'"
               v-for="(component, index) in basicComponents"
               :label="$t(`fm.components.fields.${component.type}`)"

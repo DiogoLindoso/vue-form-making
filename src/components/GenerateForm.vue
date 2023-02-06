@@ -28,6 +28,8 @@
             :simple="item.options.simple"
             :alignCenter="item.options.alignCenter"
             :space="item.options.space"
+            v-model="models"
+            :rules="rules"
           />
         </template>
 
@@ -91,7 +93,12 @@ export default {
   methods: {
     generateModle (genList) {
       for (let i = 0; i < genList.length; i++) {
-        if (genList[i].type === 'grid') {
+        if(genList[i].type === 'form-steps') {
+          genList[i].steps.forEach(item => {
+            this.generateModle(item.list)
+          })
+        }
+        else if (genList[i].type === 'grid') {
           genList[i].columns.forEach(item => {
             this.generateModle(item.list)
           })
