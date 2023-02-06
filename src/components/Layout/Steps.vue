@@ -120,7 +120,7 @@
         </el-step>
       </el-steps>
       <!-- step content -->
-      <el-form
+      <div
         v-for="(stepElement, stepIndex) in steps"
         :key="stepIndex"
         v-show="active === stepIndex"
@@ -138,18 +138,24 @@
               :columns="el.columns"
             />
           </template>
+          <template v-else-if="el.type == 'multipleinput'">
+            <multiple-input-render
+              :key="el.key"
+              :widget.sync="el"
+              v-model="models[el.model]"
+            />
+          </template>
           <template v-else>
             <generate-form-item
               :key="el.key"
               :models.sync="models"
-              :rules="rules"
-              :widget="el" 
+              :widget="el"
               @input-change="onInputChange"
               :remote="el.remote"
             />
           </template>
         </template>
-      </el-form>
+      </div>
       <el-button style="margin-top: 12px" @click="next">Próximo</el-button>
     </template>
   </div>
@@ -160,6 +166,8 @@ import Draggable from "vuedraggable";
 import WidgetFormItem from "../WidgetFormItem";
 import Grid from "./Grid"
 import GenerateFormItem from "../GenerateFormItem";
+import MultipleInputRender from '../MultipleInput/render'
+
 export default {
   props: [
     "steps",
@@ -174,12 +182,14 @@ export default {
     "alignCenter",
     "simple",
     "space",
+    "value"
   ],
   components: {
     Draggable,
     WidgetFormItem,
     Grid,
     GenerateFormItem,
+    MultipleInputRender
   },
   data() {
     return {
@@ -188,7 +198,7 @@ export default {
       step: '',
       stepIndex: 0,
       elStepIndex: null,
-      models: {},
+      models: this.value,
       rules: {}
     };
   },
@@ -210,6 +220,16 @@ export default {
     },
     active(val){
       this.stepIndex = val;
+    },
+    value: {
+      handler: function (value) {
+        this.models = value;
+      }
+    },
+    models: {
+      handler: function (value) {
+        this.$emit('input', value)
+      }
     }
   },
   methods: {

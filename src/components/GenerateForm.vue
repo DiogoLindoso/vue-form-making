@@ -28,6 +28,8 @@
             :simple="item.options.simple"
             :alignCenter="item.options.alignCenter"
             :space="item.options.space"
+            v-model="models"
+            :rules="rules"
           />
         </template>
 
@@ -35,6 +37,14 @@
           <el-form-item :label="item.name" :prop="item.model" :key="item.key">
             <slot :name="item.model" :model="models"></slot>
           </el-form-item>
+        </template>
+
+        <template v-else-if="item.type == 'multipleinput'">
+          <multiple-input-render
+            :key="item.key"
+            :widget.sync="item"
+            v-model="models[item.model]"
+          />
         </template>
 
         <template v-else>
@@ -58,12 +68,15 @@ import GenetateFormItem from './GenerateFormItem'
 import {loadJs} from '../util/index.js'
 import Grid from './Layout/Grid'
 import Steps from './Layout/Steps'
+import MultipleInputRender from './MultipleInput/render'
+
 export default {
   name: 'fm-generate-form',
   components: {
     GenetateFormItem,
     Grid,
     Steps,
+    MultipleInputRender
   },
   props: ['data', 'remote', 'value', 'insite'],
   data () {
@@ -80,7 +93,12 @@ export default {
   methods: {
     generateModle (genList) {
       for (let i = 0; i < genList.length; i++) {
-        if (genList[i].type === 'grid') {
+        if(genList[i].type === 'form-steps') {
+          genList[i].steps.forEach(item => {
+            this.generateModle(item.list)
+          })
+        }
+        else if (genList[i].type === 'grid') {
           genList[i].columns.forEach(item => {
             this.generateModle(item.list)
           })

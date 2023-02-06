@@ -26,6 +26,7 @@ export default {
         divider: 'Divider',
         signature: 'Signature',
         'form-steps': 'Form Steps',
+        multipleinput: 'Multiple Input'
       },
       basic: {
         title: 'Basic Component',
@@ -63,7 +64,8 @@ export default {
       addStep: 'Add Step',
       addTab: 'Add Tab',
       upload: 'Upload',
-      add: 'Add'
+      add: 'Add',
+      config: 'To set up'
     },
     config: {
       form: {

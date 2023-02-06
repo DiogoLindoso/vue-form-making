@@ -1,3 +1,5 @@
+import multipleInputConfig from './MultipleInput/componentConfig';
+
 export const basicComponents = [
   {
     type: 'input',
@@ -298,7 +300,8 @@ export const advanceComponents = [
       required: false,
       disabled: false,
     }
-  }
+  },
+  multipleInputConfig
 ]
 
 export const layoutComponents = [
