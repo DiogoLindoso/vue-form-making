@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="value" style="width: 100%" max-height="250" @header-click="handleSelectWidget">
+  <el-table :data="model" style="width: 100%" max-height="250" @header-click="handleSelectWidget">
     <el-table-column header-align="center" :label="widget.name">
       <el-table-column type="index"></el-table-column>
       <el-table-column
@@ -13,9 +13,10 @@
         <template slot-scope="scope">
           <generate-form-item
             v-if="column.item != null"
-            :models.sync="models"
+            v-model="model[scope.$index][column.item.name]"
             :widget="getWidget(column.item, scope.$index)"
             hidden-label="true"
+            @input-change="onInputChange"
           />
         </template>
       </el-table-column>
@@ -46,7 +47,7 @@ export default {
   data () {
     return {
       selectWidget: this.select,
-      models: {},
+      model: this.value,
     }
   },
   methods: {
@@ -63,19 +64,23 @@ export default {
       this.widget.columns.forEach(column => {
         data[column.item.name] = column.item.options.defaultValue;
       });
-      this.value.push(data);
+      this.$emit('input-change', [...this.model, data], this.widget.model);
     },
     handleDeleteRow (index) {
-      delete this.value.splice(index, 1);
+      delete this.model.splice(index, 1);
     },
     handleCloneRow(index) {
-      let clone = {...this.value[index]};
-      this.value.splice(index, 0, clone);
+      let clone = {...this.model[index]};
+      this.model.splice(index, 0, clone);
+    },
+    onInputChange(value, field) {
+      const [_, index, key] = field.split('.');
+      this.model[index][key] = value;
+      console.log('OnInputChange Update >> ', value, field);
     },
     getWidget(item, index) {
       let widget = {...item};
-      widget.model = `${widget.name}_${index}`;
-      widget.prop = `${this.widget.model}.${index}.${widget.name}`;
+      widget.model = `${this.widget.model}.${index}.${widget.name}`;
       return widget;
     }
   },
@@ -86,25 +91,12 @@ export default {
     selectWidget (value) {
       this.$emit('update:select', value)
     },
-    value (value) {
-      let models = {};
-      value.forEach((model, index) => {
-        for (const key in model) {
-          if (Object.hasOwnProperty.call(model, key)) {
-            models[`${key}_${index}`] = model[key];
-          }
-        }
-      });
-      this.models = models,
-      this.$emit('input', value);
+    model (value) {
+      console.log('Updatea Mode >> ', value);
+      // this.$emit('input-change', value, this.widget.model);
     },
-    models (value) {
-      for (const key in value) {
-        if (Object.hasOwnProperty.call(value, key)) {
-          let [name, index] = key.split('_');
-          this.value[index][name] = value[key];
-        }
-      }
+    value (value) {
+      this.model = value
     }
   }
 }
