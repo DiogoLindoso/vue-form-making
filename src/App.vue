@@ -18,7 +18,7 @@
         <div class="action-item">
           <el-dropdown trigger="click" @command="handleLangCommand">
             <span class="el-dropdown-link">
-              {{$route.params.lang == 'zh-CN' ? '简体中文' : 'English'}}<i class="el-icon-arrow-down el-icon--right"></i>
+              {{ currentLang($route.params.lang) }}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="pt-BR">Português</el-dropdown-item>
@@ -38,6 +38,17 @@ import Vue from 'vue'
 
 export default {
   name: 'app',
+  computed: {
+    currentLang() {
+      const getLang = {
+        'pt-BR': "Português",
+        'zh-CN': "简体中文",
+        'en-US': "English",
+      };
+
+      return (lang) => getLang[lang];
+    },
+  },
   methods: {
     handleHome () {
       this.$router.push({path: '/'})
