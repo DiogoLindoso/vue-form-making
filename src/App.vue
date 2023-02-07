@@ -21,6 +21,7 @@
               {{$route.params.lang == 'zh-CN' ? '简体中文' : 'English'}}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="pt-BR">Português</el-dropdown-item>
               <el-dropdown-item command="zh-CN">简体中文</el-dropdown-item>
               <el-dropdown-item command="en-US">English</el-dropdown-item>
             </el-dropdown-menu>

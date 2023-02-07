@@ -9,6 +9,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import enLocale from 'element-ui/lib/locale/lang/en'
 import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
+import ptLocale from 'element-ui/lib/locale/lang/pt-br'
+
 
 Vue.use(VueI18n)
 Vue.use(VueEditor)
@@ -29,6 +31,14 @@ const messages = {
       pricing: '商业授权',
       advanced: '高级版本',
     }
+  },
+  'pt-BR':{
+    header: {
+      title: 'FormMaking',
+      document: 'Documentos',
+      pricing: 'Preço',
+      advanced: 'Avançado',
+    }
   }
 }
 
@@ -39,6 +49,9 @@ const i18n = new VueI18n({
     },
     'zh-CN': {
       ...zhLocale, ...messages['zh-CN']
+    },
+    'pt-BR': {
+      ...ptLocale, ...messages['pt-BR']
     }
   }
 })

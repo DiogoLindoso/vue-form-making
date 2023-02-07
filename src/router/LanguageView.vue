@@ -17,8 +17,11 @@ export default {
       } else if (this.$route.params.lang == 'en-US') {
         this.$i18n.locale = 'en-US'
         localStorage.setItem('language', 'en-US')
+      } else if (this.$route.params.lang == 'pt-BR') {
+        this.$i18n.locale = 'pt-BR'
+        localStorage.setItem('language', 'pt-BR')
       } else {
-        this.$router.replace({name: this.$route.name, params: {lang: navigator.language == 'zh-CN' ? 'zh-CN' : 'en-US'}})
+        this.$router.replace({name: this.$route.name, params: {lang: navigator.language == 'pt-BR' ? 'pt-BR' : 'en-US'}})
       }
     }
   },
