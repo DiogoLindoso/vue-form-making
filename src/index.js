@@ -6,6 +6,7 @@ import GenerateForm from './components/GenerateForm.vue'
 
 import enUS from './lang/en-US'
 import zhCN from './lang/zh-CN'
+import ptBR from './lang/pt-BR'
 
 import './iconfont/iconfont.css'
 import './styles/cover.scss'
@@ -15,10 +16,12 @@ const loadLang = function (Vue, lang, locale, i18n) {
   if (locale) {
     locale('en-US', {...locale('en-US'), ...enUS})
     locale('zh-CN', {...locale('zh-CN'), ...zhCN})
+    locale('pt-BR', {...locale('pt-BR'), ...ptBR})
     Vue.config.lang = lang
   } else if (i18n) {
     i18n.setLocaleMessage('en-US', {...i18n.messages['en-US'], ...enUS})
     i18n.setLocaleMessage('zh-CN', {...i18n.messages['zh-CN'], ...zhCN})
+    i18n.setLocaleMessage('pt-BR', {...i18n.messages['pt-BR'], ...ptBR})
     i18n.locale = lang
   } else {
     Vue.use(VueI18n)
@@ -26,7 +29,8 @@ const loadLang = function (Vue, lang, locale, i18n) {
       locale: lang,
       messages: {
         'en-US': {...enUS},
-        'zh-CN': {...zhCN}
+        'zh-CN': {...zhCN},
+        'pt-BR': {...ptBR},
       }
     })
 
