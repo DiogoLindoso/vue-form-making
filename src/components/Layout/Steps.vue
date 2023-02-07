@@ -144,15 +144,16 @@
               :key="el.key"
               :widget.sync="el"
               v-model="models[el.model]"
+              @input-change="onInputChange"
             />
           </template>
           <template v-else>
             <generate-form-item
               :key="el.key"
-              :models.sync="models"
+              v-model="models[el.model]"
               :widget="el"
-              @input-change="onInputChange"
               :remote="el.remote"
+              @input-change="onInputChange"
             />
           </template>
         </template>
@@ -328,6 +329,7 @@ export default {
     },
     onInputChange (value, field) {
       this.$emit('on-change', field, value, this.models)
+      this.$emit('input-change', value, field);
     },
     next() {
       if (this.kind == 'widget') {

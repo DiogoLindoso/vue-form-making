@@ -127,7 +127,7 @@ export default {
         })
       }
 
-      if (this.data.list[newIndex].type === 'grid') {
+      if (this.data.list[newIndex].type === 'grid' || this.data.list[newIndex].type === 'multipleinput') {
         this.$set(this.data.list, newIndex, {
           ...this.data.list[newIndex],
           columns: this.data.list[newIndex].columns.map(item => ({...item}))

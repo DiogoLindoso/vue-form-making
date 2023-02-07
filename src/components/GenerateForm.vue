@@ -3,7 +3,7 @@
     <el-form ref="generateForm" 
       label-suffix=":"
       :size="data.config.size"
-      :model="models" :rules="rules" :label-position="data.config.labelPosition" :label-width="data.config.labelWidth + 'px'">
+      :model="models" :label-position="data.config.labelPosition" :label-width="data.config.labelWidth + 'px'">
       <template v-for="item in data.list">
 
         <template v-if="item.type == 'grid'">
@@ -29,6 +29,7 @@
             :alignCenter="item.options.alignCenter"
             :space="item.options.space"
             v-model="models"
+            @input-change="onInputChange"
             :rules="rules"
           />
         </template>
@@ -44,15 +45,15 @@
             :key="item.key"
             :widget.sync="item"
             v-model="models[item.model]"
+            @input-change="onInputChange"
           />
         </template>
 
         <template v-else>
           <genetate-form-item 
             :key="item.key" 
-            :models.sync="models" 
-            :rules="rules" 
             :widget="item" 
+            v-model="models[item.model]"
             @input-change="onInputChange"
             :remote="remote">
           </genetate-form-item>
@@ -150,7 +151,8 @@ export default {
       this.$refs.generateForm.resetFields()
     },
     onInputChange (value, field) {
-      this.$emit('on-change', field, value, this.models)
+      this.models = {...this.models, [field]: value}
+      this.$emit('on-change', field, value, this.models);
     },
     refresh () {
       
@@ -169,7 +171,7 @@ export default {
         console.log(JSON.stringify(val))
         this.models = {...this.models, ...val}
       }
-    }
+    },
   }
 }
 </script>
