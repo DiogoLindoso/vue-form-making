@@ -1,7 +1,7 @@
 <template>
   <el-form-item
+    :prop="widget.model"
     :rules="widget.rules"
-    :prop="widget.prop || widget.model"
     :label-width="hiddenLabel ? '0' : ''"
     :label="hiddenLabel ? '': widget.name"
   >
@@ -226,14 +226,14 @@ import FmUpload from './Upload'
 import Signature from './Signature'
 
 export default {
-  props: ['widget', 'models', 'rules', 'remote', 'hiddenLabel'],
+  props: ['widget', 'value', 'rules', 'remote', 'hiddenLabel'],
   components: {
     FmUpload,
     Signature,
   },
   data () {
     return {
-      dataModel: this.models[this.widget.model]
+      dataModel: this.value
     }
   },
   created () {
@@ -259,20 +259,13 @@ export default {
   },
   watch: {
     dataModel: {
-      deep: true,
-      handler (val) {
-        this.models[this.widget.model] = val
-        this.$emit('update:models', {
-          ...this.models,
-          [this.widget.model]: val
-        })
-        this.$emit('input-change', val, this.widget.model)
+      handler: function (value) {
+        this.$emit('input-change', value, this.widget.model);
       }
     },
-    models: {
-      deep: true,
-      handler (val) {
-        this.dataModel = val[this.widget.model]
+    value: {
+      handler: function (value) {
+        this.dataModel = value;
       }
     }
   }
