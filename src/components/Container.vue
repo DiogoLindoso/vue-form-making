@@ -65,7 +65,7 @@
             </div>
             
           </el-aside>
-          <el-container class="center-container" direction="vertical">
+          <el-container ref="mainContainer" class="center-container" direction="vertical">
             <el-header class="btn-bar" style="height: 45px;">
               <slot name="action">
               </slot>
@@ -74,6 +74,7 @@
               <el-button v-if="preview" type="text" size="medium" icon="el-icon-view" @click="handlePreview">{{$t('fm.actions.preview')}}</el-button>
               <el-button v-if="generateJson" type="text" size="medium" icon="el-icon-tickets" @click="handleGenerateJson">{{$t('fm.actions.json')}}</el-button>
               <el-button v-if="generateCode" type="text" size="medium" icon="el-icon-document" @click="handleGenerateCode">{{$t('fm.actions.code')}}</el-button>
+              <el-button v-if="fullScreen" type="text" size="medium" icon="el-icon-full-screen" @click="handleFullScreen">{{$t('fm.actions.fullScreen')}}</el-button>
             </el-header>
             <el-main :class="{'widget-empty': widgetForm.list.length == 0}">
               
@@ -209,6 +210,10 @@ export default {
       default: false
     },
     clearable: {
+      type: Boolean,
+      default: false
+    },
+    fullScreen: {
       type: Boolean,
       default: false
     },
@@ -369,6 +374,13 @@ export default {
         const vueeditor = ace.edit('vuecodeeditor')
         vueeditor.session.setMode("ace/mode/html")
       })
+    },
+    handleFullScreen(){
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      }else{
+        this.$refs.mainContainer.$el.requestFullscreen();
+      }
     },
     handleUpload () {
       this.uploadVisible = true
