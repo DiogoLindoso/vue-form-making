@@ -16,6 +16,7 @@
           :title="step.title"
           :key="stepIndex"
           @click.native="active = stepIndex"
+          style="cursor: pointer;"
         >
         </el-step>
       </el-steps>

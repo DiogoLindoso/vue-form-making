@@ -65,7 +65,8 @@ export default {
         "addTab": "Adicionar guia",
         "upload": "Carregar",
         "add": "Adicionar",
-        "config": "Configurar"
+        "config": "Configurar",
+        "fullScreen": "Tela Cheia"
       },
       config: {
         form: {

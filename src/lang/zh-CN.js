@@ -63,7 +63,8 @@ export default {
       addStep: 'Add Step',
       addTab: '添加标签',
       upload: '点击上传',
-      add: '添加'
+      add: '添加',
+      fullScreen: "Full screen"
     },
     config: {
       form: {

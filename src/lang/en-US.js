@@ -65,7 +65,8 @@ export default {
       addTab: 'Add Tab',
       upload: 'Upload',
       add: 'Add',
-      config: 'To set up'
+      config: 'To set up',
+      fullScreen: "Full screen"
     },
     config: {
       form: {
