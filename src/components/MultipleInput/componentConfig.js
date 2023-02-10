@@ -6,6 +6,7 @@ export default {
     { width: 'auto', item: null, }
   ],
   options: {
-    defaultValue: []
+    defaultValue: [],
+    showLabel: true,
   }
 }

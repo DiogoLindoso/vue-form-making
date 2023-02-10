@@ -750,4 +750,18 @@ $primary-background-color: #ecf5ff;
   .widget-empty{
     background-position: 50%;
   }
+  
+  .el-form-item--small.el-form-item {
+    margin-bottom: 0px;
+  }
+
+  .el-table__cell {
+    &.hide {
+      display: none;
+    }
+    
+    .cell .el-tag{
+      cursor: pointer;
+    }
+  }
 }

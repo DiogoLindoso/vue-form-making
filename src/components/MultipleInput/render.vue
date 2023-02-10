@@ -1,6 +1,6 @@
 <template>
   <el-table :data="model" style="width: 100%" max-height="250" @header-click="handleSelectWidget">
-    <el-table-column header-align="center" :label="widget.name">
+    <el-table-column :class-name="widget.options.showLabel ? '' : 'hide'" header-align="center" :label="widget.name">
       <el-table-column type="index"></el-table-column>
       <el-table-column
         v-for="(column, index) in widget.columns"
@@ -20,13 +20,20 @@
           />
         </template>
       </el-table-column>
-      <el-table-column align="right" fixed="right" header-align="right" width="120">
+      <el-table-column align="center" header-align="right" width="90">
         <template v-slot:header>
-          <el-button plain size="small" icon="el-icon-plus" @click="handleAddRow"></el-button>
+          <el-tag effect="plain" type="info" size="small" @click.native="handleAddRow"><i class="el-icon-plus"></i></el-tag>
         </template>
         <template v-slot="{ $index }">
-          <el-button plain type="primary" size="small" icon="el-icon-copy-document" @click="handleCloneRow($index)"></el-button>
-          <el-button plain type="danger" size="small" icon="el-icon-minus" @click="handleDeleteRow($index)"></el-button>
+
+          <div style="display: flex; justify-content: space-between;" >
+            <el-tag effect="light" type="primary" size="small" @click="handleCloneRow($index)">
+              <i class="el-icon-copy-document"></i>
+            </el-tag>
+            <el-tag effect="light" type="danger" size="small" @click="handleDeleteRow($index)">
+              <i class="el-icon-minus"></i>
+            </el-tag>
+            </div>
         </template>
       </el-table-column>
     </el-table-column>
@@ -60,6 +67,14 @@ export default {
       this.selectWidget = item;
     },
     handleAddRow () {
+      if(this.widget.columns.some(column => column.item == null)) {
+        this.$message({
+          showClose: true,
+          message: 'Selecione o tipo da coluna',
+          type: 'error'
+        });
+        return;
+      }
       let data = {};
       this.widget.columns.forEach(column => {
         data[column.item.name] = column.item.options.defaultValue;
