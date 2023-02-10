@@ -22,17 +22,10 @@
       </el-steps>
       <!-- step content -->
       <template v-if="element && element.key">
-        <el-form
+        <div
           v-for="(stepElement, stepIndex) in steps"
           :key="stepIndex"
           v-show="active === stepIndex"
-          type="flex"
-          :class="{ active: selectWidget.key == element.key }"
-          :gutter="element.options.gutter ? element.options.gutter : 0"
-          :justify="element.options.justify"
-          :align="element.options.align"
-          class="widget-form-container"
-          style="position: static"
         >
           <template v-if="stepElement.list.length==0">
             <div class="form-empty">{{$t('fm.description.containerEmpty')}}</div>
@@ -84,7 +77,7 @@
               </template>
             </transition-group>
           </draggable>
-        </el-form>
+        </div>
       </template>
       <el-button style="margin-top: 12px" @click="next">Próximo</el-button>
   
@@ -127,7 +120,7 @@
         :key="stepIndex"
         v-show="active === stepIndex"
         type="flex"
-        style="position: static"
+        style="position: static; padding: 1em; 0"
       >
         <template v-for="el in stepElement.list">
           <template v-if="el.type == 'grid'">
@@ -248,7 +241,7 @@ export default {
       console.log('add', evt)
       console.log('end', evt)
       const newIndex = evt.newIndex
-      const newElement = this.data.list[this.index].steps[this.stepIndex].list[newIndex];
+      const newElement = {...this.data.list[this.index].steps[this.stepIndex].list[newIndex]};
       const to = evt.to
       console.log(to)
 
@@ -266,30 +259,18 @@ export default {
         rules: []
       })
 
-      if (
-          newElement.type === 'radio' 
-          || newElement.type === 'checkbox'
-          || newElement.type === 'select'
-        ) {
-        this.$set(this.data.list[this.index].steps[this.stepIndex].list, newIndex, {
-          ...newElement,
-          options: {
-            ...newElement.options,
-            options: newElement.options.options.map(item => ({
-              ...item
-            }))
-          }
-        })
+      if (['radio', 'checkbox', 'select'].includes(newElement.type)) {
+        this.data.list[this.index].steps[this.stepIndex].list[newIndex].options = {
+          ...newElement.options,
+          options: newElement.options.options.map(item => ({ ...item }))
+        }
       }
 
       if (newElement.type === 'grid') {
-        this.$set(this.data.list[this.index].steps[this.stepIndex].list, newIndex, {
-          ...newElement,
-          columns: newElement.columns.map(item => ({...item}))
-        })
+        this.data.list[this.index].steps[this.stepIndex].list[newIndex].columns = newElement.columns.map(item => ({...item}));
       }
 
-      this.selectWidget = newElement
+      this.selectWidget = this.data.list[this.index].steps[this.stepIndex].list[newIndex];
     },
     handleSelectWidget(index, stepIndex, elStepIndex) {
       console.log({index, stepIndex, elStepIndex}, "#####");

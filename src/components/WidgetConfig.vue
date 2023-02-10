@@ -335,7 +335,7 @@
         </el-form-item>
       </template>
 
-      <template v-if="!['grid', 'form-steps'].includes(data.type)">
+      <template v-if="!['grid', 'form-steps', 'multipleinput'].includes(data.type)">
         <el-form-item :label="$t('fm.config.widget.attribute')">
           <el-checkbox v-model="data.options.readonly" v-if="Object.keys(data.options).indexOf('readonly')>=0">{{$t('fm.config.widget.readonly')}}</el-checkbox>
           <el-checkbox v-model="data.options.disabled" v-if="Object.keys(data.options).indexOf('disabled')>=0">{{$t('fm.config.widget.disabled')}}	</el-checkbox>
