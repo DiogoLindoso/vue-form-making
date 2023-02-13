@@ -14,6 +14,8 @@
             :justify="item.options.justify"
             :align="item.options.align"
             :columns="item.columns"
+            v-model="models"
+            @input-change="onInputChange"
           />
         </template>
 

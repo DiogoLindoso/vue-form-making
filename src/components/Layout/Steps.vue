@@ -131,6 +131,8 @@
               :justify="el.options.justify"
               :align="el.options.align"
               :columns="el.columns"
+              v-model="models"
+              @input-change="onInputChange"
             />
           </template>
           <template v-else-if="el.type == 'multipleinput'">

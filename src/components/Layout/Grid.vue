@@ -24,10 +24,9 @@
           <generate-form-item
             v-else
             :key="citem.key"
-            :models.sync="models"
-            :remote="remote"
-            :rules="rules"
-            :widget="citem"
+            v-model="models[citem.model]"
+            :widget.sync="citem"
+            :remote="citem.remote"
             @input-change="onInputChange"
           >
           </generate-form-item>
@@ -60,6 +59,7 @@
           }"
           @end="handleMoveEnd"
           @add="handleWidgetColAdd($event, element, colIndex)"
+          @change="onChange($event, element, colIndex)"
         >
           <transition-group name="fade" tag="div" class="widget-col-list">
             <template v-for="(el, i) in col.list">
@@ -117,13 +117,12 @@ export default {
     "select",
     "data",
     "kind",
+    "value"
   ],
   data: function () {
     return {
       selectedWidget: this.select,
-      models: {},
-      rules: {},
-      remote:{}
+      models: this.value,
     };
   },
   watch: {
@@ -136,8 +135,26 @@ export default {
       },
       deep: true,
     },
+    value: {
+      handler: function (value) {
+        this.models = value;
+      }
+    },
+    models: {
+      handler: function (value) {
+        this.$emit('input', value)
+      }
+    }
   },
   methods: {
+    onChange({added}, grid, colIndex){
+      const {element, newIndex} = added;
+      if (['form-steps', 'grid', 'multipleinput'].includes(element.type)) {
+        this.$nextTick(() => {
+          grid.columns[colIndex].list.splice(newIndex, 1);
+        });
+      }
+    },
     handleMoveEnd({ newIndex, oldIndex }) {
       console.log("index", newIndex, oldIndex);
     },
@@ -216,6 +233,8 @@ export default {
     },
     onInputChange (value, field) {
       this.$emit('on-change', field, value, this.models)
+      console.log('Updata >> ', value);
+      this.$emit('input-change', value, field);
     },
   },
 };
