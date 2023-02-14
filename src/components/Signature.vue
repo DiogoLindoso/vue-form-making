@@ -33,6 +33,11 @@ export default {
       default: "200px",
     },
   },
+  watch:{
+    value:function(val){
+      if(!val) this.$refs.signaturePad.clearSignature();
+    }
+  },
   methods: {
     onEnd() {
       const { isEmpty, data } = this.$refs.signaturePad.saveSignature();
