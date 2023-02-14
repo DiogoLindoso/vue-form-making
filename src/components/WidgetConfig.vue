@@ -512,7 +512,7 @@ export default {
       if (val) {
         this.validator.pattern = {
           pattern: val,
-          message: `${this.data.name }: ${$t('fm.config.widget.validatorPattern')}`
+          message: `${this.data.name }: ${this.$t('fm.config.widget.validatorPattern')}`
         }
       } else {
         this.validator.pattern = null
