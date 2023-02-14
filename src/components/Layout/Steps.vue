@@ -116,6 +116,7 @@
       </el-steps>
       <!-- step content -->
       <div
+        ref="step"
         v-for="(stepElement, stepIndex) in steps"
         :key="stepIndex"
         v-show="active === stepIndex"
@@ -180,7 +181,8 @@ export default {
     "alignCenter",
     "simple",
     "space",
-    "value"
+    "value",
+    "validateFields"
   ],
   components: {
     Draggable,
@@ -315,7 +317,16 @@ export default {
       this.$emit('on-change', field, value, this.models)
       this.$emit('input-change', value, field);
     },
-    next() {
+    async next() {
+      const fields = this.steps[this.stepIndex].list.map(item => item.model);
+      
+      if (fields.length > 0) {
+        const isValid = await this.validateFields(fields);
+        if (!isValid) {
+          return;
+        }
+      }
+
       if (this.kind == 'widget') {
         if (this.active++ >= this.data.list[this.index].steps.length -1) this.active = 0;
       }

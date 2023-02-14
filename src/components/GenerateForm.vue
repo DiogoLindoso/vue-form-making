@@ -33,6 +33,7 @@
             v-model="models"
             @input-change="onInputChange"
             :rules="rules"
+            :validateFields="validateFields"
           />
         </template>
 
@@ -158,6 +159,15 @@ export default {
     },
     refresh () {
       
+    },
+    async validateFields(fields) {
+      const promiseCallback = (resolve) => {
+        this.$refs.generateForm.validateField(fields, errorMessage => {
+          resolve(!errorMessage);
+        });
+      };
+
+      return new Promise(promiseCallback);
     }
   },
   watch: {
