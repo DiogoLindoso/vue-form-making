@@ -9,7 +9,7 @@
       :value="value"
     />
     <div>
-      <button @click="clear">Apagar</button>
+      <button @click.prevent="clear">Apagar</button>
     </div>
   </div>
 </template>
