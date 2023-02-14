@@ -318,10 +318,22 @@ export default {
       this.$emit('input-change', value, field);
     },
     async next() {
-      const fields = this.steps[this.stepIndex].list.map(item => item.model);
-      
-      if (fields.length > 0) {
-        const isValid = await this.validateFields(fields);
+      const fieldsToBeValidated = [];
+      const  getFieldsToBeValidated = items => {
+        for (const item of items) {
+          if (item.type === 'grid') {
+            item.columns.forEach(column => getFieldsToBeValidated(column.list))
+            continue;
+          }
+          if (item.type === 'multipleinput') continue
+          fieldsToBeValidated.push(item.model);
+        }
+      };
+
+      const items = this.steps[this.stepIndex].list;
+      getFieldsToBeValidated(items);
+      if (fieldsToBeValidated.length > 0) {
+        const isValid = await this.validateFields(fieldsToBeValidated);
         if (!isValid) {
           return;
         }
