@@ -35,7 +35,8 @@
     "vue-router": "^3.0.1",
     "vue-signature-pad": "^2.0.5",
     "vue2-editor": "^2.10.2",
-    "vuedraggable": "^2.16.0"
+    "vuedraggable": "^2.16.0",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.1",

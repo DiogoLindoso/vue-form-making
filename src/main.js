@@ -4,6 +4,7 @@ import router from './router'
 import ElementUI from 'element-ui'
 import VueI18n from 'vue-i18n'
 import VueEditor from 'vue2-editor'
+import store from './store'
 
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -72,6 +73,7 @@ Vue.config.productionTip = false
 Vue.prototype.$log = console.log;
 new Vue({
   i18n,
+  store,
   router,
   render: h => h(App)
 }).$mount('#app')

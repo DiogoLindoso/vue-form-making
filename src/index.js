@@ -45,7 +45,7 @@ const loadLang = function (Vue, lang, locale, i18n) {
 }
 
 MakingForm.install = function (Vue, opts = {
-  lang: 'zh-CN',
+  lang: 'pt-BR',
   locale: null,
   i18n: null
 }) {
@@ -54,7 +54,7 @@ MakingForm.install = function (Vue, opts = {
 }
 
 GenerateForm.install = function (Vue, opts = {
-  lang: 'zh-CN',
+  lang: 'pt-BR',
   locale: null,
   i18n: null
 }) {
@@ -68,12 +68,12 @@ const components = [
 ]
 
 const install = function (Vue, opts = {
-  lang: 'zh-CN',
+  lang: 'pt-BR',
   locale: null,
   i18n: null
 }) {
   opts = {
-    lang: 'zh-CN',
+    lang: 'pt-BR',
     locale: null,
     i18n: null,
     ...opts
