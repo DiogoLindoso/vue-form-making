@@ -181,6 +181,7 @@ import {basicComponents, layoutComponents, advanceComponents} from './components
 import {loadJs, loadCss} from '../util/index.js'
 import request from '../util/request.js'
 import generateCode from './generateCode.js'
+import { mapFields } from 'vuex-map-fields';
 
 export default {
   name: 'fm-making-form',
@@ -230,66 +231,92 @@ export default {
       default: () => ['grid', 'form-steps']
     }
   },
-  data () {
-    return {
-      basicComponents,
-      layoutComponents,
-      advanceComponents,
-      resetJson: false,
-      widgetForm: {
-        list: [],
-        config: {
-          labelWidth: 100,
-          labelPosition: 'right',
-          size: 'small'
-        },
-      },
-      configTab: 'widget',
-      widgetFormSelect: null,
-      previewVisible: false,
-      jsonVisible: false,
-      codeVisible: false,
-      uploadVisible: false,
-      remoteFuncs: {
-        func_test (resolve) {
-          setTimeout(() => {
-            const options = [
-              {id: '1', name: '1111'},
-              {id: '2', name: '2222'},
-              {id: '3', name: '3333'}
-            ]
+  computed:{
+    ...mapFields('making',[
+      'basicComponents',
+      'layoutComponents',
+      'advanceComponents',
+      'resetJson',
+      'widgetForm',
+      'widgetFormSelect',
+      'configTab',
+      'previewVisible',
+      'jsonVisible',
+      'codeVisible',
+      'uploadVisible',
+      'remoteFuncs',
+      'widgetModels',
+      'blank',
+      'htmlTemplate',
+      'vueTemplate',
+      'jsonTemplate',
+      'uploadEditor',
+      'jsonCopyValue',
+      'jsonClipboard',
+      'jsonEg',
+      'codeActiveName',
 
-            resolve(options)
-          }, 2000)
-        },
-        funcGetToken (resolve) {
-          request.get('http://tools-server.making.link/api/uptoken').then(res => {
-            resolve(res.uptoken)
-          })
-        },
-        upload_callback (response, file, fileList) {
-          console.log('callback', response, file, fileList)
-        }
-      },
-      widgetModels: {},
-      blank: '',
-      htmlTemplate: '',
-      vueTemplate: '',
-      jsonTemplate: '',
-      uploadEditor: null,
-      jsonCopyValue: '',
-      jsonClipboard: null,
-      jsonEg: `{
-  "list": [],
-  "config": {
-    "labelWidth": 100,
-    "labelPosition": "top",
-    "size": "small"
-  }
-}`,
-      codeActiveName: 'vue',
-    }
+    ]),
   },
+//   data () {
+//     return {
+//       basicComponents,
+//       layoutComponents,
+//       advanceComponents,
+//       resetJson: false,
+//       widgetForm: {
+//         list: [],
+//         config: {
+//           labelWidth: 100,
+//           labelPosition: 'right',
+//           size: 'small'
+//         },
+//       },
+//       configTab: 'widget',
+//       previewVisible: false,
+//       jsonVisible: false,
+//       codeVisible: false,
+//       uploadVisible: false,
+//       remoteFuncs: {
+//         func_test (resolve) {
+//           setTimeout(() => {
+//             const options = [
+//               {id: '1', name: '1111'},
+//               {id: '2', name: '2222'},
+//               {id: '3', name: '3333'}
+//             ]
+
+//             resolve(options)
+//           }, 2000)
+//         },
+//         funcGetToken (resolve) {
+//           request.get('http://tools-server.making.link/api/uptoken').then(res => {
+//             resolve(res.uptoken)
+//           })
+//         },
+//         upload_callback (response, file, fileList) {
+//           console.log('callback', response, file, fileList)
+//         }
+//       },
+//       widgetModels: {},
+//       blank: '',
+//       htmlTemplate: '',
+//       vueTemplate: '',
+//       jsonTemplate: '',
+//       uploadEditor: null,
+//       jsonCopyValue: '',
+//       jsonClipboard: null,
+//       jsonEg: `{
+//   "list": [],
+//   "config": {
+//     "labelWidth": 100,
+//     "labelPosition": "top",
+//     "size": "small"
+//   }
+// }`,
+//       codeActiveName: 'vue',
+//     }
+//   },
   mounted () {
     this._loadComponents()
   },

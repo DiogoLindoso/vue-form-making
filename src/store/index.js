@@ -1,32 +1,12 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
+import Vue from "vue";
+import Vuex from "vuex";
+import generate from "./Generate";
+import making from "./Making";
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    schema: {
-        "list": [],
-        "config": {
-          "labelWidth": 100,
-          "labelPosition": "right",
-          "size": "small"
-        }
-    },
-    review:{},
-    data:{},
+  modules: {
+    generate,
+    making,
   },
-  mutations: {
-    setSchema(state, payload){
-      state.schema = {...payload}
-    },
-    setReview(state, payload){
-      state.review = {...payload}
-    },
-    setData(state, payload){
-      state.data = {...payload}
-    }
-  },
-  getters:{},
-  actions:{}
-})
+});

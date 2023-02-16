@@ -73,7 +73,7 @@ import {loadJs} from '../util/index.js'
 import Grid from './Layout/Grid'
 import Steps from './Layout/Steps'
 import MultipleInputRender from './MultipleInput/render'
-
+import { mapFields } from 'vuex-map-fields';
 export default {
   name: 'fm-generate-form',
   components: {
@@ -83,11 +83,11 @@ export default {
     MultipleInputRender
   },
   props: ['data', 'remote', 'value', 'insite'],
-  data () {
-    return {
-      models: {},
-      rules: {}
-    }
+  computed:{
+    ...mapFields('generate',[
+      'models',
+      'rules',
+    ]),
   },
   created () {
     this.generateModle(this.data.list)
