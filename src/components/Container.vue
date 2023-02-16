@@ -78,7 +78,7 @@
             </el-header>
             <el-main :class="{'widget-empty': widgetForm.list.length == 0}">
               
-              <widget-form v-if="!resetJson"  ref="widgetForm" :select.sync="widgetFormSelect"></widget-form>
+              <widget-form v-if="!resetJson" ref="widgetForm"></widget-form>
             </el-main>
           </el-container>
           

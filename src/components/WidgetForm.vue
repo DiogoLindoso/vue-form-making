@@ -22,7 +22,7 @@
                   :gutter="element.options.gutter ? element.options.gutter : 0"
                   :justify="element.options.justify"
                   :align="element.options.align"
-                  :select.sync="selectWidget"
+                  :select.sync="widgetFormSelect"
                   :columns="element.columns"
                   :element="element"
                   :index="index"
@@ -39,7 +39,7 @@
                 :gutter="element.options.gutter ? element.options.gutter : 0"
                 :justify="element.options.justify"
                 :align="element.options.align"
-                :select.sync="selectWidget"
+                :select.sync="widgetFormSelect"
                 :steps="element.steps"
                 :element="element"
                 :index="index"
@@ -50,7 +50,7 @@
               />
             </template>
             <template v-else>
-              <widget-form-item v-if="element && element.key"  :key="element.key" :element="element" :select.sync="selectWidget" :index="index" :data="widgetForm"></widget-form-item>
+              <widget-form-item v-if="element && element.key"  :key="element.key" :element="element" :select.sync="widgetFormSelect" :index="index" :data="widgetForm"></widget-form-item>
             </template>
           </template>
         </transition-group>
@@ -103,7 +103,7 @@ export default {
     },
     handleSelectWidget (index) {
       console.log(index, '#####')
-      this.selectWidget = this.widgetForm.list[index]
+      this.widgetFormSelect = this.widgetForm.list[index]
     },
     handleWidgetAdd (evt) {
       console.log('add', evt)
@@ -145,19 +145,8 @@ export default {
         })
       }
 
-      this.selectWidget = this.widgetForm.list[newIndex]
+      this.widgetFormSelect = this.widgetForm.list[newIndex]
     },
   },
-  watch: {
-    select (val) {
-      this.selectWidget = val
-    },
-    selectWidget: {
-      handler (val) {
-        this.$emit('update:select', val)
-      },
-      deep: true
-    }
-  }
 }
 </script>
