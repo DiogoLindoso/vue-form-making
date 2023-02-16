@@ -62,6 +62,7 @@ export default {
       }
     }`,
     codeActiveName: "vue",
+    allowMove: true,
   },
   getters: {
     getField,

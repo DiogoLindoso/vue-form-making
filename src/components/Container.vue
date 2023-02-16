@@ -255,68 +255,13 @@ export default {
       'jsonClipboard',
       'jsonEg',
       'codeActiveName',
-
+      'allowMove',
     ]),
+    ...mapFields('generate',[
+      'models',
+      'rules',
+    ])
   },
-//   data () {
-//     return {
-//       basicComponents,
-//       layoutComponents,
-//       advanceComponents,
-//       resetJson: false,
-//       widgetForm: {
-//         list: [],
-//         config: {
-//           labelWidth: 100,
-//           labelPosition: 'right',
-//           size: 'small'
-//         },
-//       },
-//       configTab: 'widget',
-//       previewVisible: false,
-//       jsonVisible: false,
-//       codeVisible: false,
-//       uploadVisible: false,
-//       remoteFuncs: {
-//         func_test (resolve) {
-//           setTimeout(() => {
-//             const options = [
-//               {id: '1', name: '1111'},
-//               {id: '2', name: '2222'},
-//               {id: '3', name: '3333'}
-//             ]
-
-//             resolve(options)
-//           }, 2000)
-//         },
-//         funcGetToken (resolve) {
-//           request.get('http://tools-server.making.link/api/uptoken').then(res => {
-//             resolve(res.uptoken)
-//           })
-//         },
-//         upload_callback (response, file, fileList) {
-//           console.log('callback', response, file, fileList)
-//         }
-//       },
-//       widgetModels: {},
-//       blank: '',
-//       htmlTemplate: '',
-//       vueTemplate: '',
-//       jsonTemplate: '',
-//       uploadEditor: null,
-//       jsonCopyValue: '',
-//       jsonClipboard: null,
-//       jsonEg: `{
-//   "list": [],
-//   "config": {
-//     "labelWidth": 100,
-//     "labelPosition": "top",
-//     "size": "small"
-//   }
-// }`,
-//       codeActiveName: 'vue',
-//     }
-//   },
   mounted () {
     this._loadComponents()
   },
@@ -354,7 +299,7 @@ export default {
       console.log('start', oldIndex, this.basicComponents)
     },
     handleMove () {
-      return true
+      return this.allowMove;
     },
     handlePreview () {
       console.log(this.widgetForm)
@@ -435,6 +380,9 @@ export default {
           customClass: ''
         },
       }
+      console.log('handleClear',this.widgetModels);
+      this.models = {};
+      this.rules = {};
 
       this.widgetFormSelect = {}
     },
@@ -471,7 +419,7 @@ export default {
     },
     '$i18n.locale': function (val) {
       this._loadComponents()
-    }
+    },
   }
 }
 </script>
