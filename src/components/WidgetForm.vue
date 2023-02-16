@@ -1,21 +1,21 @@
 <template>
   <div class="widget-form-container">
-    <div v-if="data.list.length == 0" class="form-empty">{{$t('fm.description.containerEmpty')}}</div>
-    <el-form :size="data.config.size" label-suffix=":" :label-position="data.config.labelPosition" :label-width="data.config.labelWidth + 'px'">
+    <div v-if="widgetForm.list.length == 0" class="form-empty">{{$t('fm.description.containerEmpty')}}</div>
+    <el-form :size="widgetForm.config.size" label-suffix=":" :label-position="widgetForm.config.labelPosition" :label-width="widgetForm.config.labelWidth + 'px'">
       
       <draggable class="" 
-        v-model="data.list" 
+        v-model="widgetForm.list" 
         v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
         @end="handleMoveEnd"
         @add="handleWidgetAdd"
       >
 
         <transition-group name="fade" tag="div" class="widget-form-list">
-          <template v-for="(element, index) in data.list">
+          <template v-for="(element, index) in widgetForm.list">
             <template v-if="element.type == 'grid'">
                 <grid 
                   v-if="element && element.key"
-                  :data.sync="data"
+                  :data.sync="widgetForm"
                   :kind="'widget'"
                   :key="element.key"
                   class="widget-col widget-view"
@@ -32,7 +32,7 @@
             <template v-else-if="element.type == 'form-steps'">
               <steps
                 v-if="element && element.key"
-                :data.sync="data"
+                :data.sync="widgetForm"
                 :kind="'widget'"
                 :key="element.key"
                 class="widget-col widget-view"
@@ -50,7 +50,7 @@
               />
             </template>
             <template v-else>
-              <widget-form-item v-if="element && element.key"  :key="element.key" :element="element" :select.sync="selectWidget" :index="index" :data="data"></widget-form-item>
+              <widget-form-item v-if="element && element.key"  :key="element.key" :element="element" :select.sync="selectWidget" :index="index" :data="widgetForm"></widget-form-item>
             </template>
           </template>
         </transition-group>
@@ -64,6 +64,8 @@ import Draggable from 'vuedraggable'
 import WidgetFormItem from './WidgetFormItem'
 import Grid from './Layout/Grid'
 import Steps from './Layout/Steps'
+import { mapFields } from 'vuex-map-fields';
+
 export default {
   components: {
     Draggable,
@@ -71,7 +73,16 @@ export default {
     Grid,
     Steps,
   },
-  props: ['data', 'select'],
+  props: ['select'],
+  computed:{
+    ...mapFields('making',[
+
+      'widgetForm',
+      'widgetFormSelect',
+      'allowMove',
+    ]),
+
+  },
   data () {
     return {
       selectWidget: this.select
@@ -92,7 +103,7 @@ export default {
     },
     handleSelectWidget (index) {
       console.log(index, '#####')
-      this.selectWidget = this.data.list[index]
+      this.selectWidget = this.widgetForm.list[index]
     },
     handleWidgetAdd (evt) {
       console.log('add', evt)
@@ -103,38 +114,38 @@ export default {
       
       //为拖拽到容器的元素添加唯一 key
       const key = Date.parse(new Date()) + '_' + Math.ceil(Math.random() * 99999)
-      this.$set(this.data.list, newIndex, {
-        ...this.data.list[newIndex],
+      this.$set(this.widgetForm.list, newIndex, {
+        ...this.widgetForm.list[newIndex],
         options: {
-          ...this.data.list[newIndex].options,
+          ...this.widgetForm.list[newIndex].options,
           remoteFunc: 'func_' + key
         },
         key,
         // 绑定键值
-        model: this.data.list[newIndex].type + '_' + key,
+        model: this.widgetForm.list[newIndex].type + '_' + key,
         rules: []
       })
 
-      if (this.data.list[newIndex].type === 'radio' || this.data.list[newIndex].type === 'checkbox' || this.data.list[newIndex].type === 'select') {
-        this.$set(this.data.list, newIndex, {
-          ...this.data.list[newIndex],
+      if (this.widgetForm.list[newIndex].type === 'radio' || this.widgetForm.list[newIndex].type === 'checkbox' || this.widgetForm.list[newIndex].type === 'select') {
+        this.$set(this.widgetForm.list, newIndex, {
+          ...this.widgetForm.list[newIndex],
           options: {
-            ...this.data.list[newIndex].options,
-            options: this.data.list[newIndex].options.options.map(item => ({
+            ...this.widgetForm.list[newIndex].options,
+            options: this.widgetForm.list[newIndex].options.options.map(item => ({
               ...item
             }))
           }
         })
       }
 
-      if (this.data.list[newIndex].type === 'grid' || this.data.list[newIndex].type === 'multipleinput') {
-        this.$set(this.data.list, newIndex, {
-          ...this.data.list[newIndex],
-          columns: this.data.list[newIndex].columns.map(item => ({...item}))
+      if (this.widgetForm.list[newIndex].type === 'grid' || this.widgetForm.list[newIndex].type === 'multipleinput') {
+        this.$set(this.widgetForm.list, newIndex, {
+          ...this.widgetForm.list[newIndex],
+          columns: this.widgetForm.list[newIndex].columns.map(item => ({...item}))
         })
       }
 
-      this.selectWidget = this.data.list[newIndex]
+      this.selectWidget = this.widgetForm.list[newIndex]
     },
   },
   watch: {
