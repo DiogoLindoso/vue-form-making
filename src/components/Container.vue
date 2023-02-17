@@ -298,7 +298,14 @@ export default {
     handleMoveStart ({oldIndex}) {
       console.log('start', oldIndex, this.basicComponents)
     },
-    handleMove () {
+    handleMove (event) {
+      console.log({event:event.draggedContext.element.type,to:event.relatedContext.component.$parent.$el.className});
+      if (
+        event.draggedContext.element.type == 'form-steps' &&
+        event.relatedContext.component.$parent.$el.className.indexOf('widget-col') >= 0
+      ) {
+        return false;
+      }
       return this.allowMove;
     },
     handlePreview () {

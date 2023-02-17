@@ -40,7 +40,7 @@
               handle: '.drag-widget',
             }"
             @end="handleMoveEnd"
-            @add="handleWidgetAdd"
+            @add="handleWidgetAdd($event, element, stepIndex)"
             @change="onChange"
           >
             <transition-group name="fade" tag="div" class="widget-form-list">
@@ -241,13 +241,32 @@ export default {
     handleMoveEnd({ newIndex, oldIndex }) {
       console.log("index", newIndex, oldIndex);
     },
-    handleWidgetAdd (evt) {
+    handleWidgetAdd (evt, step, stepIndex) {
       console.log('add', evt)
       console.log('end', evt)
       const newIndex = evt.newIndex
       const newElement = {...this.data.list[this.index].steps[this.stepIndex].list[newIndex]};
+      const item = evt.item;
       const to = evt.to
       console.log(to)
+
+      // Impede arrastar aninhado de elementos de layout
+      if (
+        item.className.indexOf("data-grid") >= 0 ||
+        item.className.indexOf('_type_form-steps') >= 0
+      ) {
+        // Se o elemento arrastado na lista precisar ser restaurado para sua posição original
+        item.tagName === "DIV" &&
+          this.data.list.splice(
+            oldIndex,
+            0,
+            step.columns[stepIndex].list[newIndex]
+          );
+
+          step.columns[stepIndex].list.splice(newIndex, 1);
+
+        return false;
+      }
 
       //为拖拽到容器的元素添加唯一 key
       const key = Date.parse(new Date()) + '_' + Math.ceil(Math.random() * 99999)
