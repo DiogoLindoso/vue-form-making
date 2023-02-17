@@ -52,7 +52,7 @@
                   :move="handleMove"
                 >
                   <template v-for="(item, index) in layoutComponents">
-                    <li v-if="layoutFields.indexOf(item.type) >=0" class="form-edit-widget-label no-put" :key="index">
+                    <li v-if="layoutFields.indexOf(item.type) >=0" :class="['form-edit-widget-label', 'no-put',`_type_${item.type}`]" :key="index">
                       <a>
                         <i class="icon iconfont" :class="item.icon"></i>
                         <span>{{item.name}}</span>

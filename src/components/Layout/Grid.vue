@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="grid">
     <el-row
       v-if="kind == 'generate'"
       type="flex"
@@ -150,13 +150,17 @@ export default {
       console.log("index", newIndex, oldIndex);
     },
     handleWidgetColAdd($event, row, colIndex) {
-      console.log("coladd", $event, row, colIndex);
+      console.log("coladd", {$event, row, colIndex});
+      console.log({draggedContext: $event});
       const newIndex = $event.newIndex;
       const oldIndex = $event.oldIndex;
       const item = $event.item;
-
       // Impede arrastar aninhado de elementos de layout
-      if (item.className.indexOf("data-grid") >= 0) {
+      if (
+          item.className.indexOf("data-grid") >= 0 ||
+          item.className.indexOf('_type_grid') >= 0 ||
+          item.className.indexOf('_type_form-steps') >= 0
+        ) {
         // Se o elemento arrastado na lista precisar ser restaurado para sua posição original
         item.tagName === "DIV" &&
           this.data.list.splice(
