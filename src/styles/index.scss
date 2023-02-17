@@ -750,9 +750,9 @@ $primary-background-color: #ecf5ff;
   .widget-empty{
     background-position: 50%;
   }
-  
+
   .el-table__cell {
-    .el-form-item--small.el-form-item {
+    .el-form-item {
       margin-bottom: 0px;
     }
     
@@ -762,6 +762,75 @@ $primary-background-color: #ecf5ff;
 
     &.hide {
       display: none;
+    }
+  }
+
+  &.fm-style-review {
+    .el-table__cell .el-form-item {
+        .icon {
+          text-align: center;
+          right: 0;
+          left: 0;
+        }
+    }
+    .el-form-item {
+      &.approved, &.disapproved, &.review {
+        position: relative;
+        border-radius: 8px;
+        margin: 4px;
+        padding: 8px;
+    
+        .icon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 2em;
+          position: absolute;
+          z-index: 10;
+          bottom: 0;
+          top: 0;
+          right: 0.15em;
+          opacity: 0.3;
+        }
+    
+        &:after {
+          border-radius: 4px;
+          position: absolute;
+          display: block;
+          filter: blur(0.1em) opacity(0.2);
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+        }
+      }
+    }
+  
+    .el-form-item.review {
+      .icon {
+        color: gray;
+      }
+      &:after {
+        background: gray;
+      }
+    }
+
+    .el-form-item.approved {
+      .icon {
+        color: green;
+      }
+      &:after {
+        background: green;
+      }
+    }
+  
+    .el-form-item.disapproved {
+      .icon {
+        color: red;
+      }
+      &:after {
+        background: red;
+      }
     }
   }
 }

@@ -5,6 +5,7 @@
     :label-width="hiddenLabel ? '0' : ''"
     :label="hiddenLabel ? '': widget.name"
   >
+    <slot />
     <template v-if="widget.type == 'input'" >
       <el-input
         v-if="widget.options.dataType == 'number' || widget.options.dataType == 'integer' || widget.options.dataType == 'float'"
