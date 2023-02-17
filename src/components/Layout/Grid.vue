@@ -59,7 +59,6 @@
           }"
           @end="handleMoveEnd"
           @add="handleWidgetColAdd($event, element, colIndex)"
-          @change="onChange($event, element, colIndex)"
         >
           <transition-group name="fade" tag="div" class="widget-col-list">
             <template v-for="(el, i) in col.list">
@@ -147,14 +146,6 @@ export default {
     }
   },
   methods: {
-    onChange({added}, grid, colIndex){
-      const {element, newIndex} = added;
-      if (['form-steps', 'grid', 'multipleinput'].includes(element.type)) {
-        this.$nextTick(() => {
-          grid.columns[colIndex].list.splice(newIndex, 1);
-        });
-      }
-    },
     handleMoveEnd({ newIndex, oldIndex }) {
       console.log("index", newIndex, oldIndex);
     },
