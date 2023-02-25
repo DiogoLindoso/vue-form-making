@@ -79,6 +79,7 @@ export default {
   props: {
     template: Object,
     data: Object,
+    loggedUser: Object,
   },
   data: function() {
     return {
@@ -148,12 +149,6 @@ export default {
 
   },
   computed: {
-    loggedUser: function () {
-      return {
-        name: 'Matheus Lucas',
-        rCode: '5976'
-      }
-    },
     labelPosition: function () {
       return this.template.config.labelPosition;
     },
