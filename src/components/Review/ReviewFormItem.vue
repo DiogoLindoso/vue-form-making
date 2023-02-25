@@ -82,7 +82,7 @@
     _updateState(newState) {
       this.review.state = newState;
       this.review.approver = { ...this.loggedUser };
-      this.review.approvalDate = new Date();
+      this.review.approvalDate = new Date().toISOString();
       this.popoverVisible = false;
     }
   },
@@ -97,7 +97,8 @@
       return this.review.state != 'review';
     },
     formattedApprovalDate() {
-      return format(this.review.approvalDate, "dd 'de' MMMM 'de' Y 'às' HH:mm");
+      const date = new Date(this.review.approvalDate);
+      return format(date, "dd 'de' MMMM 'de' Y 'às' HH:mm");
     },
     fontSizeIcon() {
       if (this.widget.type === 'textarea' || this.widget.options.inline === false) {
