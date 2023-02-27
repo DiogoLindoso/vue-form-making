@@ -5,6 +5,7 @@ import MakingForm from './components/Container.vue'
 import GenerateForm from './components/GenerateForm.vue'
 import ReviewForm from './components/Review/ReviewForm.vue'
 import ElementUI from 'element-ui'
+import VueEditor from 'vue2-editor'
 import enUS from './lang/en-US'
 import zhCN from './lang/zh-CN'
 import ptBR from './lang/pt-BR'
@@ -56,6 +57,7 @@ MakingForm.install = function (Vue, opts = {
     size: 'small',
     i18n: (key, value) => i18n.t(key, value)
   })
+  Vue.use(VueEditor)
 }
 
 GenerateForm.install = function (Vue, opts = {
@@ -69,6 +71,7 @@ GenerateForm.install = function (Vue, opts = {
     size: 'small',
     i18n: (key, value) => i18n.t(key, value)
   })
+  Vue.use(VueEditor)
 }
 
 ReviewForm.install = function (Vue, opts = {
@@ -82,6 +85,7 @@ ReviewForm.install = function (Vue, opts = {
     size: 'small',
     i18n: (key, value) => i18n.t(key, value)
   })
+  Vue.use(VueEditor)
 }
 
 const components = [
@@ -110,6 +114,7 @@ const install = function (Vue, opts = {
     size: 'small',
     i18n: (key, value) => i18n.t(key, value)
   })
+  Vue.use(VueEditor)
 }
 
 if (typeof window !== 'undefined' && window.Vue) {
