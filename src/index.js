@@ -116,6 +116,7 @@ const install = function (Vue, opts = {
     size: 'small',
     locale: ptLocale,
   })
+  Vue.use(VueEditor)
 }
 
 if (typeof window !== 'undefined' && window.Vue) {
