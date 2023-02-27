@@ -47,7 +47,7 @@ const loadLang = function (Vue, lang, locale, i18n) {
 }
 
 MakingForm.install = function (Vue, opts = {
-  lang: 'zh-CN',
+  lang: 'pt-BR',
   locale: null,
   i18n: null
 }) {
@@ -61,7 +61,7 @@ MakingForm.install = function (Vue, opts = {
 }
 
 GenerateForm.install = function (Vue, opts = {
-  lang: 'zh-CN',
+  lang: 'pt-BR',
   locale: null,
   i18n: null
 }) {
@@ -75,7 +75,7 @@ GenerateForm.install = function (Vue, opts = {
 }
 
 ReviewForm.install = function (Vue, opts = {
-  lang: 'zh-CN',
+  lang: 'pt-BR',
   locale: null,
   i18n: null
 }) {
@@ -95,12 +95,12 @@ const components = [
 ]
 
 const install = function (Vue, opts = {
-  lang: 'zh-CN',
+  lang: 'pt-BR',
   locale: null,
   i18n: null
 }) {
   opts = {
-    lang: 'zh-CN',
+    lang: 'pt-BR',
     locale: null,
     i18n: null,
     ...opts
@@ -112,9 +112,8 @@ const install = function (Vue, opts = {
   })
   Vue.use(ElementUI, { 
     size: 'small',
-    i18n: (key, value) => i18n.t(key, value)
+    // i18n: (key, value) => i18n.t(key, value)
   })
-  Vue.use(VueEditor)
 }
 
 if (typeof window !== 'undefined' && window.Vue) {
