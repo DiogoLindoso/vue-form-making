@@ -9,7 +9,9 @@ import VueEditor from 'vue2-editor'
 import enUS from './lang/en-US'
 import zhCN from './lang/zh-CN'
 import ptBR from './lang/pt-BR'
-
+import enLocale from 'element-ui/lib/locale/lang/en'
+import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
+import ptLocale from 'element-ui/lib/locale/lang/pt-br'
 import './iconfont/iconfont.css'
 import './styles/cover.scss'
 import './styles/index.scss'
@@ -55,7 +57,7 @@ MakingForm.install = function (Vue, opts = {
   Vue.component(MakingForm.name, MakingForm)
   Vue.use(ElementUI, { 
     size: 'small',
-    i18n: (key, value) => i18n.t(key, value)
+    locale: ptLocale,
   })
   Vue.use(VueEditor)
 }
@@ -69,7 +71,7 @@ GenerateForm.install = function (Vue, opts = {
   Vue.component(GenerateForm.name, GenerateForm)
   Vue.use(ElementUI, { 
     size: 'small',
-    i18n: (key, value) => i18n.t(key, value)
+    locale: ptLocale,
   })
   Vue.use(VueEditor)
 }
@@ -83,7 +85,7 @@ ReviewForm.install = function (Vue, opts = {
   Vue.component(ReviewForm.name, ReviewForm)
   Vue.use(ElementUI, { 
     size: 'small',
-    i18n: (key, value) => i18n.t(key, value)
+    locale: ptLocale,
   })
   Vue.use(VueEditor)
 }
@@ -112,7 +114,7 @@ const install = function (Vue, opts = {
   })
   Vue.use(ElementUI, { 
     size: 'small',
-    // i18n: (key, value) => i18n.t(key, value)
+    locale: ptLocale,
   })
 }
 
