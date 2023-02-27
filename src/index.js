@@ -15,6 +15,7 @@ import ptLocale from 'element-ui/lib/locale/lang/pt-br'
 import './iconfont/iconfont.css'
 import './styles/cover.scss'
 import './styles/index.scss'
+import 'element-ui/lib/theme-chalk/index.css'
 
 const loadLang = function (Vue, lang, locale, i18n) {
   if (locale) {
