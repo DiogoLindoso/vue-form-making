@@ -12,7 +12,7 @@
       >
         <template slot-scope="scope">
           <generate-form-item
-            v-if="column.item != null"
+            v-if="!approvedFields.includes(`${widget.model}.${scope.$index}.${column.item.name}`)"
             v-model="model[scope.$index][column.item.name]"
             :widget="getWidget(column.item, scope.$index)"
             hidden-label="true"
@@ -49,7 +49,8 @@ export default {
   props: {
     widget: { type: Object },
     select: { type: Object },
-    value: { type: Array, default: () => [] }
+    value: { type: Array, default: () => [] },
+    approvedFields: Array
   },
   data () {
     return {

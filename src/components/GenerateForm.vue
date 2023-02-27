@@ -49,6 +49,7 @@
             :widget.sync="item"
             v-model="models[item.model]"
             @input-change="onInputChange"
+            :approved-fields="approvedFields"
           />
         </template>
 
@@ -69,7 +70,6 @@
 
 <script>
 import GenetateFormItem from './GenerateFormItem'
-import {loadJs} from '../util/index.js'
 import Grid from './Layout/Grid'
 import Steps from './Layout/Steps'
 import MultipleInputRender from './MultipleInput/render'
@@ -82,7 +82,7 @@ export default {
     Steps,
     MultipleInputRender
   },
-  props: ['data', 'remote', 'value', 'insite'],
+  props: ['data', 'remote', 'value', 'insite', 'approvedFields'],
   data () {
     return {
       models: {},
