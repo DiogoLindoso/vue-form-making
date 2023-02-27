@@ -34,6 +34,7 @@
             @input-change="onInputChange"
             :rules="rules"
             :validateFields="validateFields"
+            :approved-fields="approvedFields"
           />
         </template>
 

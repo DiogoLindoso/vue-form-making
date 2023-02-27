@@ -1,5 +1,6 @@
 <script setup>
 import ReviewFormItem from "./ReviewFormItem.vue";
+import ReviewFormStep from "./ReviewFormStep.vue";
 </script>
 
 <template>
@@ -58,6 +59,14 @@ import ReviewFormItem from "./ReviewFormItem.vue";
             </el-table-column>
           </el-table>
         </template>
+
+        <ReviewFormStep 
+          v-else-if="element.type === 'form-steps'"
+          :element="element"
+          :models="models"
+          :reviews="reviews"
+          :logged-user="loggedUser"
+        />
 
         <template v-else>
           <ReviewFormItem

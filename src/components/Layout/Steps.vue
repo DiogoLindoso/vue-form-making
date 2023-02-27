@@ -142,6 +142,7 @@
               :widget.sync="el"
               v-model="models[el.model]"
               @input-change="onInputChange"
+              :approved-fields="approvedFields"
             />
           </template>
           <template v-else>
@@ -182,7 +183,8 @@ export default {
     "simple",
     "space",
     "value",
-    "validateFields"
+    "validateFields",
+    "approvedFields"
   ],
   components: {
     Draggable,

@@ -50,7 +50,7 @@ export default {
     widget: { type: Object },
     select: { type: Object },
     value: { type: Array, default: () => [] },
-    approvedFields: Array
+    approvedFields: { type: Array, default: () => [] }
   },
   data () {
     return {
