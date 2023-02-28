@@ -1,9 +1,16 @@
+<script setup>
+import GenerateRepeatable from './Repeatable/GenerateRepeatable.vue';
+</script>
+
 <template>
   <div class="fm-style">
     <el-form ref="generateForm" 
       label-suffix=":"
       :size="data.config.size"
-      :model="models" :label-position="data.config.labelPosition" :label-width="data.config.labelWidth + 'px'">
+      :model="models"
+      :label-position="data.config.labelPosition"
+      :label-width="data.config.labelWidth + 'px'"
+    >
       <template v-for="item in data.list">
 
         <template v-if="item.type == 'grid'">
@@ -44,15 +51,14 @@
           </el-form-item>
         </template>
 
-        <template v-else-if="item.type == 'multipleinput'">
-          <multiple-input-render
-            :key="item.key"
-            :widget.sync="item"
-            v-model="models[item.model]"
-            @input-change="onInputChange"
-            :approved-fields="approvedFields"
-          />
-        </template>
+        <GenerateRepeatable
+          v-else-if="item.type == 'multipleinput'"
+          v-model="models"
+          :key="item.key"
+          :widget="item"
+          :approved-fields="approvedFields"
+          @input-change="onInputChange"
+        />
 
         <template v-else>
           <genetate-form-item 
@@ -98,6 +104,8 @@ export default {
   methods: {
     generateModle (genList) {
       for (let i = 0; i < genList.length; i++) {
+        if (genList[i].type === 'multipleinput') continue;
+        
         if(genList[i].type === 'form-steps') {
           genList[i].steps.forEach(item => {
             this.generateModle(item.list)
@@ -177,14 +185,7 @@ export default {
       handler (val) {
         this.generateModle(val.list)
       }
-    },
-    value: {
-      deep: true,
-      handler (val) {
-        console.log(JSON.stringify(val))
-        this.models = {...this.models, ...val}
-      }
-    },
+    }
   }
 }
 </script>
