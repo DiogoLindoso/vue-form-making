@@ -1,4 +1,6 @@
 <script setup>
+import './styles.scss';
+
 import GenerateFormItem from '../GenerateFormItem.vue';
 </script>
 
@@ -123,46 +125,3 @@ export default {
 	}
 }
 </script>
-
-<style lang="scss" scoped>
-.repeatable-wrapper {
-	.actions {
-		display: flex;
-		justify-content: flex-end;
-		.el-tag ~ .el-tag { margin-left: 4px;}
-		.el-tag:hover {
-			cursor: pointer;
-			filter: brightness(.85);
-		}
-	}
-	.repeatable-header {
-		background-color: #000;
-		padding: 8px;
-	
-		border-top-left-radius: 4px;
-		border-top-right-radius: 4px;
-		.title {
-			color: #FFF;
-			text-transform: uppercase;
-			font-size: .85em;
-			letter-spacing: .15em;
-			font-family: Verdana, sans-serif;
-			&.required::before {
-				content: "*";
-				font-weight: bold;
-				color: red;
-			}
-		}
-	}
-	.repeatable-body {
-		border: 1px solid #000;
-		border-bottom-left-radius: 4px;
-		border-bottom-right-radius: 4px;
-		.el-row {
-			padding: 0 8px;
-			border-bottom: 1px solid black;
-		}
-		.el-row:last-child { border-bottom: 0; }
-	}
-}
-</style>
