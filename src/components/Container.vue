@@ -223,7 +223,7 @@ export default {
     },
     advanceFields: {
       type: Array,
-      default: () => ['blank', 'imgupload', 'editor', 'cascader', 'signature', 'multipleinput']
+      default: () => ['blank', 'imgupload', 'editor', 'cascader', 'signature', 'repeatable']
     },
     layoutFields: {
       type: Array,

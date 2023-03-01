@@ -35,7 +35,7 @@ import ReviewFormItem from './ReviewFormItem.vue'
 						</el-row>
 					</template>
 
-					<template v-else-if="subElement.type === 'multipleinput'">
+					<template v-else-if="subElement.type === 'repeatable'">
 						<el-table  :key="subElement.key" :data="models[subElement.model]" style="width: 100%" max-height="300">
 							<el-table-column :class-name="subElement.options.showLabel ? '' : 'hide'" header-align="center" :label="subElement.name">
 								<el-table-column

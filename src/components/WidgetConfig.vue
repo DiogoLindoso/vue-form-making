@@ -5,10 +5,10 @@ import ConfigRepeatable from './Repeatable/ConfigRepeatable.vue';
 <template>
   <div v-if="show">
     <el-form label-position="top">
-      <el-form-item :label="$t('fm.config.widget.model')" v-if="!['multipleinput', 'grid', 'form-steps'].includes(data.type)">
+      <el-form-item :label="$t('fm.config.widget.model')" v-if="!['repeatable', 'grid', 'form-steps'].includes(data.type)">
         <el-input v-model="data.model"></el-input>
       </el-form-item>
-      <el-form-item :label="$t('fm.config.widget.name')" v-if="!['multipleinput', 'grid', 'form-steps'].includes(data.type)">
+      <el-form-item :label="$t('fm.config.widget.name')" v-if="!['repeatable', 'grid', 'form-steps'].includes(data.type)">
         <el-input v-model="data.name"></el-input>
       </el-form-item>
       <el-form-item :label="$t('fm.config.widget.width')" v-if="Object.keys(data.options).indexOf('width')>=0">
@@ -339,7 +339,7 @@ import ConfigRepeatable from './Repeatable/ConfigRepeatable.vue';
         </el-form-item>
       </template>
 
-      <template v-if="!['grid', 'form-steps', 'multipleinput'].includes(data.type)">
+      <template v-if="!['grid', 'form-steps', 'repeatable'].includes(data.type)">
         <el-form-item :label="$t('fm.config.widget.attribute')">
           <el-checkbox v-model="data.options.readonly" v-if="Object.keys(data.options).indexOf('readonly')>=0">{{$t('fm.config.widget.readonly')}}</el-checkbox>
           <el-checkbox v-model="data.options.disabled" v-if="Object.keys(data.options).indexOf('disabled')>=0">{{$t('fm.config.widget.disabled')}}	</el-checkbox>
@@ -375,7 +375,7 @@ import ConfigRepeatable from './Repeatable/ConfigRepeatable.vue';
       </template>
 
       <ConfigRepeatable
-        v-if="data.type == 'multipleinput'"
+        v-if="data.type == 'repeatable'"
         :data.sync="data"
       />
     </el-form>
@@ -384,12 +384,10 @@ import ConfigRepeatable from './Repeatable/ConfigRepeatable.vue';
 
 <script>
 import Draggable from 'vuedraggable'
-import MultipleInputConfig from './MultipleInput/config';
 
 export default {
   components: {
-    Draggable,
-    MultipleInputConfig
+    Draggable
   },
   props: ['data'],
   data () {

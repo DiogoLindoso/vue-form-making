@@ -1,4 +1,4 @@
-import multipleInputConfig from './MultipleInput/componentConfig';
+import repeatableConfig from './Repeatable/config';
 
 export const basicComponents = [
   {
@@ -301,7 +301,7 @@ export const advanceComponents = [
       disabled: false,
     }
   },
-  multipleInputConfig
+  repeatableConfig
 ]
 
 export const layoutComponents = [

@@ -149,7 +149,7 @@ export default {
   methods: {
     onChange({added}, grid, colIndex){
       const {element, newIndex} = added;
-      if (['form-steps', 'grid', 'multipleinput'].includes(element.type)) {
+      if (['form-steps', 'grid', 'repeatable'].includes(element.type)) {
         this.$nextTick(() => {
           grid.columns[colIndex].list.splice(newIndex, 1);
         });

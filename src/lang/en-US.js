@@ -26,7 +26,7 @@ export default {
         divider: 'Divider',
         signature: 'Signature',
         'form-steps': 'Form Steps',
-        multipleinput: 'Multiple Input'
+        repeatable: 'Repeatable'
       },
       basic: {
         title: 'Basic Component',

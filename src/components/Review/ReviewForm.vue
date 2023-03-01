@@ -37,7 +37,7 @@ import ReviewFormStep from "./ReviewFormStep.vue";
           </el-row>
         </template>
 
-        <template v-else-if="element.type === 'multipleinput'">
+        <template v-else-if="element.type === 'repeatable'">
           <el-table  :key="element.key" :data="models[element.model]" style="width: 100%" max-height="300">
             <el-table-column :class-name="element.options.showLabel ? '' : 'hide'" header-align="center" :label="element.name">
               <el-table-column

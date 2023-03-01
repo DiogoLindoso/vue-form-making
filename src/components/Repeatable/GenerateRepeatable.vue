@@ -89,7 +89,7 @@ export default {
 			const key = new Date().getTime();
 			return this.columns.map(column => {
 				const item = column.item;
-				const modelKey = `${widgetModel}_${item.name}_${key}`;
+				const modelKey = `${widgetModel}_${item.name.toLocaleLowerCase()}_${key}`;
 				this.value[modelKey] = item.options.defaultValue;
 				return modelKey;
 			});

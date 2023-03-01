@@ -54,7 +54,7 @@ import PreviewRepeatable from './Repeatable/PreviewRepeatable.vue';
               />
             </template>
 
-            <template v-else-if="element.type == 'multipleinput'">
+            <template v-else-if="element.type == 'repeatable'">
               <PreviewRepeatable
                 v-if="element && element.key"
                 class="widget-col widget-view"
@@ -167,7 +167,7 @@ export default {
         })
       }
 
-      if (this.data.list[newIndex].type === 'grid' || this.data.list[newIndex].type === 'multipleinput') {
+      if (this.data.list[newIndex].type === 'grid' || this.data.list[newIndex].type === 'repeatable') {
         this.$set(this.data.list, newIndex, {
           ...this.data.list[newIndex],
           columns: this.data.list[newIndex].columns.map(item => ({...item}))

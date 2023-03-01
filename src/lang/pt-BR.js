@@ -26,7 +26,7 @@ export default {
           "divider": "Divisor",
           "signature": "Assinatura",
           "form-steps": "Etapas",
-          "multipleinput": "Repetir"
+          "repeatable": "Repetivel"
         },
         basic: {
           title: "Componente básico"

@@ -69,7 +69,7 @@ import GenerateRepeatable from "../Repeatable/GenerateRepeatable.vue";
                     />
                   </template>
 
-                  <template v-else-if="el.type == 'multipleinput'">
+                  <template v-else-if="el.type == 'repeatable'">
                     <PreviewRepeatable
                       v-if="el && el.key"
                       class="widget-col widget-view"
@@ -163,7 +163,7 @@ import GenerateRepeatable from "../Repeatable/GenerateRepeatable.vue";
             />
           </template>
           <GenerateRepeatable
-            v-else-if="el.type == 'multipleinput'"
+            v-else-if="el.type == 'repeatable'"
             v-model="models"
             :key="el.key"
             :widget="el"
@@ -191,7 +191,6 @@ import Draggable from "vuedraggable";
 import WidgetFormItem from "../WidgetFormItem";
 import Grid from "./Grid"
 import GenerateFormItem from "../GenerateFormItem";
-import MultipleInputRender from '../MultipleInput/render'
 
 export default {
   props: [
@@ -215,8 +214,7 @@ export default {
     Draggable,
     WidgetFormItem,
     Grid,
-    GenerateFormItem,
-    MultipleInputRender
+    GenerateFormItem
   },
   data() {
     return {
@@ -352,7 +350,7 @@ export default {
             item.columns.forEach(column => getFieldsToBeValidated(column.list))
             continue;
           }
-          if (item.type === 'multipleinput') continue
+          if (item.type === 'repeatable') continue
           fieldsToBeValidated.push(item.model);
         }
       };

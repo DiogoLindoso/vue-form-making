@@ -52,7 +52,7 @@ import GenerateRepeatable from './Repeatable/GenerateRepeatable.vue';
         </template>
 
         <GenerateRepeatable
-          v-else-if="item.type == 'multipleinput'"
+          v-else-if="item.type == 'repeatable'"
           v-model="models"
           :key="item.key"
           :widget="item"
@@ -79,7 +79,6 @@ import GenerateRepeatable from './Repeatable/GenerateRepeatable.vue';
 import GenetateFormItem from './GenerateFormItem'
 import Grid from './Layout/Grid'
 import Steps from './Layout/Steps'
-import MultipleInputRender from './MultipleInput/render'
 
 export default {
   name: 'fm-generate-form',
@@ -87,7 +86,6 @@ export default {
     GenetateFormItem,
     Grid,
     Steps,
-    MultipleInputRender
   },
   props: ['data', 'remote', 'value', 'insite', 'approvedFields'],
   data () {
@@ -104,7 +102,7 @@ export default {
   methods: {
     generateModle (genList) {
       for (let i = 0; i < genList.length; i++) {
-        if (genList[i].type === 'multipleinput') continue;
+        if (genList[i].type === 'repeatable') continue;
         
         if(genList[i].type === 'form-steps') {
           genList[i].steps.forEach(item => {

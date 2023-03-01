@@ -200,7 +200,7 @@
            />
         </template>
 
-        <template v-else-if="element.type == 'multipleinput'">
+        <template v-else-if="element.type == 'repeatable'">
           <multiple-input-render 
             :widget.sync="element"
             :select.sync="selectWidget"
@@ -222,14 +222,12 @@
 <script>
 import FmUpload from './Upload'
 import Signature from './Signature.vue'
-import MultipleInputRender from './MultipleInput/render.vue';
 
 export default {
   props: ['element', 'select', 'index', 'data'],
   components: {
     FmUpload,
-    Signature,
-    MultipleInputRender
+    Signature
   },
   data () {
     return {
@@ -291,7 +289,7 @@ export default {
   },
   computed: {
     showLabel() {
-      return this.element.type != 'multipleinput';
+      return this.element.type != 'repeatable';
     }
   },
   watch: {
