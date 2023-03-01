@@ -83,6 +83,27 @@ export default {
 			rows: [],
 		}
 	},
+	created: function() {
+		const model = this.widget.model;
+		const models = Object.keys(this.value).filter(key => key.startsWith(model));
+		
+		for (const model of models) {
+			const keyParts = model.split('_');
+			const endKey = keyParts[keyParts.length - 1];
+			const doesNotContainModelInRows = this.rows.every(row => {
+				const containModelInRow = row.some(key => key.endsWith(endKey));
+				if(containModelInRow) {
+					row.push(model);
+					return false;
+				}
+				return true;
+			});
+
+			if (doesNotContainModelInRows) {
+				this.rows.push([model]);
+			}
+		}
+	},
 	methods: {
 		createRow: function() {
 			const widgetModel = this.widget.model;
@@ -113,7 +134,7 @@ export default {
 				const clonedValue = this.value[clonedModel];
 				this.$emit('input-change', clonedValue, model);
 			}
-			this.rows.push(newRow);
+			this.rows.splice(index + 1, 0, newRow);
 		}
 	},
 	computed: {

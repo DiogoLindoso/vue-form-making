@@ -90,7 +90,7 @@ export default {
   props: ['data', 'remote', 'value', 'insite', 'approvedFields'],
   data () {
     return {
-      models: {},
+      models: this.value,
       rules: {}
     }
   },
