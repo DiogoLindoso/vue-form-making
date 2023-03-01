@@ -2,11 +2,11 @@ export default {
   type: 'multipleinput',
   icon: 'icon-icon_clone',
   columns: [
-    { span: 12, width: 'auto', item: null, },
-    { span: 12, width: 'auto', item: null, }
+    { span: 24, item: null, },
+    { span: 24, item: null, }
   ],
   options: {
-    gutter: 0,
+    gutter: 4,
     maxHeight: 350
   }
 }
