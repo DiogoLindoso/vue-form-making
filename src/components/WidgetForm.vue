@@ -1,3 +1,7 @@
+<script setup>
+import PreviewRepeatable from './Repeatable/PreviewRepeatable.vue';
+</script>
+
 <template>
   <div class="widget-form-container">
     <div v-if="data.list.length == 0" class="form-empty">{{$t('fm.description.containerEmpty')}}</div>
@@ -49,6 +53,27 @@
                 :space="element.options.space"
               />
             </template>
+
+            <template v-else-if="element.type == 'multipleinput'">
+              <PreviewRepeatable
+                v-if="element && element.key"
+                class="widget-col widget-view"
+                :class="{ active: selectWidget.key == element.key }"
+                :key="element.key"
+                :element="element"
+                :selected-widget.sync="selectWidget"
+                @click.native="handleSelectWidget(index)"
+              >
+                <div v-if="select.key == element.key" class="widget-view-action widget-col-action">
+                  <i class="iconfont icon-trash" @click.stop="handleWidgetDelete(index)"></i>
+                </div>
+
+                <div v-if="select.key == element.key" class="widget-view-drag widget-col-drag">
+                  <i class="iconfont icon-drag drag-widget"></i>
+                </div>
+              </PreviewRepeatable>
+            </template>
+
             <template v-else>
               <widget-form-item v-if="element && element.key"  :key="element.key" :element="element" :select.sync="selectWidget" :index="index" :data="data"></widget-form-item>
             </template>
@@ -93,6 +118,21 @@ export default {
     handleSelectWidget (index) {
       console.log(index, '#####')
       this.selectWidget = this.data.list[index]
+    },
+    handleWidgetDelete(index) {
+      if (this.data.list.length - 1 === index) {
+        if (index === 0) {
+          this.selectWidget = {};
+        } else {
+          this.selectWidget = this.data.list[index - 1];
+        }
+      } else {
+        this.selectWidget = this.data.list[index + 1];
+      }
+
+      this.$nextTick(() => {
+        this.data.list.splice(index, 1);
+      });
     },
     handleWidgetAdd (evt) {
       console.log('add', evt)
