@@ -120,7 +120,7 @@ export default {
 			return this.widget.columns;
 		},
 		hasAllInputTypes: function() {
-			return this.columns.some(column => column.item !== null);
+			return this.columns.every(column => column.item !== null);
 		}
 	}
 }
