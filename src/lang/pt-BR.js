@@ -183,7 +183,8 @@ export default {
           "validatorPattern": "Padrão incomparável",
           "showWordLimit": "Mostrar limite de palavras",
           "maxlength": "Comprimento máximo",
-          "simple": "Simples"
+          "simple": "Simples",
+          "maxHeight": "Altura Máxima"
         }
       },
       upload: {

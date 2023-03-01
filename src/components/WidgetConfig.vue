@@ -1,10 +1,14 @@
+<script setup>
+import ConfigRepeatable from './Repeatable/ConfigRepeatable.vue';
+</script>
+
 <template>
   <div v-if="show">
     <el-form label-position="top">
-      <el-form-item :label="$t('fm.config.widget.model')" v-if="!['grid', 'form-steps'].includes(data.type)">
+      <el-form-item :label="$t('fm.config.widget.model')" v-if="!['multipleinput', 'grid', 'form-steps'].includes(data.type)">
         <el-input v-model="data.model"></el-input>
       </el-form-item>
-      <el-form-item :label="$t('fm.config.widget.name')" v-if="!['grid', 'form-steps'].includes(data.type)">
+      <el-form-item :label="$t('fm.config.widget.name')" v-if="!['multipleinput', 'grid', 'form-steps'].includes(data.type)">
         <el-input v-model="data.name"></el-input>
       </el-form-item>
       <el-form-item :label="$t('fm.config.widget.width')" v-if="Object.keys(data.options).indexOf('width')>=0">
@@ -370,9 +374,10 @@
         </el-form-item>
       </template>
 
-      <template v-if="data.type == 'multipleinput'">
-        <multiple-input-config :data.sync="data"/>
-      </template>
+      <ConfigRepeatable
+        v-if="data.type == 'multipleinput'"
+        :data.sync="data"
+      />
     </el-form>
   </div>
 </template>
