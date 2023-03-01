@@ -1,3 +1,8 @@
+<script setup>
+import PreviewRepeatable from "../Repeatable/PreviewRepeatable.vue";
+import GenerateRepeatable from "../Repeatable/GenerateRepeatable.vue";
+</script>
+
 <template>
   <div style="padding: 1em">
     <template v-if="kind == 'widget'" >
@@ -60,9 +65,30 @@
                       :columns="el.columns"
                       :element="el"
                       :index="elStepIndex"
-                      @click.native.stop="handleSelectWidget(index, stepIndex, elStepIndex)"
+                      @click.stop="handleSelectWidget(index, stepIndex, elStepIndex)"
                     />
                   </template>
+
+                  <template v-else-if="el.type == 'multipleinput'">
+                    <PreviewRepeatable
+                      v-if="el && el.key"
+                      class="widget-col widget-view"
+                      :class="{ active: selectWidget.key == el.key }"
+                      :key="element.key"
+                      :element="el"
+                      :selected-widget.sync="selectWidget"
+                      @click.native.stop="handleSelectWidget(index, stepIndex, elStepIndex)"
+                    >
+                      <div v-if="select.key == el.key" class="widget-view-action widget-col-action">
+                        <i class="iconfont icon-trash" @click.stop="widgetDelete(index)"></i>
+                      </div>
+
+                      <div v-if="select.key == el.key" class="widget-view-drag widget-col-drag">
+                        <i class="iconfont icon-drag drag-widget"></i>
+                      </div>
+                    </PreviewRepeatable>
+                  </template>
+
                   <template v-else>
                     <widget-form-item
                       v-if="el && el.key"
@@ -136,15 +162,14 @@
               @input-change="onInputChange"
             />
           </template>
-          <template v-else-if="el.type == 'multipleinput'">
-            <multiple-input-render
-              :key="el.key"
-              :widget.sync="el"
-              v-model="models[el.model]"
-              @input-change="onInputChange"
-              :approved-fields="approvedFields"
-            />
-          </template>
+          <GenerateRepeatable
+            v-else-if="el.type == 'multipleinput'"
+            v-model="models"
+            :key="el.key"
+            :widget="el"
+            :approved-fields="approvedFields"
+            @input-change="onInputChange"
+          />
           <template v-else>
             <generate-form-item
               :key="el.key"
