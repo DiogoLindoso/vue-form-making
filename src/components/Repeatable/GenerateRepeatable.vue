@@ -7,8 +7,8 @@ import GenerateFormItem from '../GenerateFormItem.vue';
 <template>
 	<div v-if="hasAllInputTypes" class="repeatable-wrapper">
 		<div class="repeatable-header">
-			<el-row type="flex" align="middle">
-				<el-col v-for="(column, index) in columns" :key="index" :span="24">
+			<el-row type="flex" align="middle" :gutter="widget.options.gutter">
+				<el-col v-for="(column, index) in columns" :key="index" :span="column.span">
 					<span class="title" :class="{ 'required': column.item.options.required }">
 						{{ column.item.name }}
 					</span>
@@ -28,15 +28,16 @@ import GenerateFormItem from '../GenerateFormItem.vue';
 			</el-row>
 		</div>
 
-		<div class="repeatable-body">
+		<div class="repeatable-body" :style="{ maxHeight }">
 			<div v-if="rows.length > 0" class="rows">
 				<el-row 
 					v-for="(row, rowIndex) in rows"
 					:key="rowIndex"
 					type="flex"
 					align="middle"
+					:gutter="widget.options.gutter"
 				>
-					<el-col v-for="(model, columnIndex) in row" :key="model" :span="24">
+					<el-col v-for="(model, columnIndex) in row" :key="model" :span="columns[columnIndex].span">
 						<GenerateFormItem
 							v-if="!approvedFields.includes(model)"
 							:widget="{...columns[columnIndex].item, model}"
@@ -121,6 +122,9 @@ export default {
 		},
 		hasAllInputTypes: function() {
 			return this.columns.every(column => column.item !== null);
+		},
+		maxHeight: function() {
+			return `${this.widget.options.maxHeight}px`;
 		}
 	}
 }
