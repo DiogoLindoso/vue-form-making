@@ -1,4 +1,8 @@
 .repeatable-wrapper {
+	.el-col {
+		min-height: initial !important;
+	}
+	
 	.actions {
 		display: flex;
 		justify-content: flex-end;
@@ -28,12 +32,9 @@
 				color: #f56c6c;
 			}
 		}
-		
-		.el-col {
-			min-height: initial !important;
-		}
 	}
 	.repeatable-body {
+		overflow-x: hidden;
 		overflow-y: scroll;
 		border: 1px solid #000;
 		border-bottom-left-radius: 4px;
@@ -41,6 +42,11 @@
 		.el-row {
 			padding: 0 8px;
 			border-bottom: 1px solid black;
+
+			.el-col .el-form-item {
+				margin-top: 16px;
+				margin-bottom: 16px;
+			}
 		}
 		.el-row:last-child { border-bottom: none; }
 	}
