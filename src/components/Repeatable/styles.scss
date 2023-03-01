@@ -2,7 +2,7 @@
 	.el-col {
 		min-height: initial !important;
 	}
-	
+
 	.actions {
 		display: flex;
 		justify-content: flex-end;
@@ -23,7 +23,7 @@
 		.title {
 			color: #FFF;
 			text-transform: uppercase;
-			font-size: .85em;
+			font-size: .8em;
 			font-weight: 600;
 			letter-spacing: .13em;
 			font-family: Verdana, sans-serif;
@@ -35,7 +35,8 @@
 	}
 	.repeatable-body {
 		overflow-x: hidden;
-		overflow-y: scroll;
+		overflow-y: visible;
+		
 		border: 1px solid #000;
 		border-bottom-left-radius: 4px;
 		border-bottom-right-radius: 4px;
@@ -49,5 +50,9 @@
 			}
 		}
 		.el-row:last-child { border-bottom: none; }
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
 	}
 }
