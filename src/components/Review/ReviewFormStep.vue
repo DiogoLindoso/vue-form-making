@@ -1,5 +1,6 @@
 <script setup>
 import ReviewFormItem from './ReviewFormItem.vue'
+import ReviewRepeatable from '../Repeatable/ReviewRepeatable.vue';
 </script>
 
 <template>
@@ -35,28 +36,13 @@ import ReviewFormItem from './ReviewFormItem.vue'
 						</el-row>
 					</template>
 
-					<template v-else-if="subElement.type === 'repeatable'">
-						<el-table  :key="subElement.key" :data="models[subElement.model]" style="width: 100%" max-height="300">
-							<el-table-column :class-name="subElement.options.showLabel ? '' : 'hide'" header-align="center" :label="subElement.name">
-								<el-table-column
-									v-for="(column, index) in subElement.columns"
-									:key="index"
-									:label="column.item.name"
-									:width="column.width"
-								>
-									<template #default="{$index}">
-										<ReviewFormItem
-											:widget="column.item"
-											:model="models[subElement.model][$index][column.item.name]"
-											v-model="reviews[subElement.model][$index][column.item.name]"
-											:logged-user="loggedUser"
-											hide-label="true"
-										/>
-									</template>
-								</el-table-column>
-							</el-table-column>
-						</el-table>
-					</template>
+					<ReviewRepeatable 
+						v-else-if="subElement.type === 'repeatable'"
+						:element="subElement"
+						:models="models"
+						:reviews="reviews"
+						:logged-user="loggedUser"
+					/>
 
 					<template v-else>
 						<ReviewFormItem

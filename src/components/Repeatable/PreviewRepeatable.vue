@@ -1,6 +1,5 @@
 <script setup>
 import './styles.scss';
-import WidgetFormItem from '../WidgetFormItem.vue';
 import GenerateFormItem from '../GenerateFormItem.vue';
 </script>
 

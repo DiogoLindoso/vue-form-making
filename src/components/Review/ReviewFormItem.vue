@@ -1,4 +1,5 @@
 <script setup>
+  import './styles.scss';
   import { format } from 'date-fns';
   import GenerateFormItem from '../GenerateFormItem.vue';
 </script>

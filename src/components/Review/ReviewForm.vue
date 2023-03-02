@@ -37,28 +37,13 @@ import ReviewFormStep from "./ReviewFormStep.vue";
           </el-row>
         </template>
 
-        <template v-else-if="element.type === 'repeatable'">
-          <el-table  :key="element.key" :data="models[element.model]" style="width: 100%" max-height="300">
-            <el-table-column :class-name="element.options.showLabel ? '' : 'hide'" header-align="center" :label="element.name">
-              <el-table-column
-                v-for="(column, index) in element.columns"
-                :key="index"
-                :label="column.item.name"
-                :width="column.width"
-              >
-                <template #default="{$index}">
-                  <ReviewFormItem
-                    :widget="column.item"
-                    :model="models[element.model][$index][column.item.name]"
-                    v-model="reviews[element.model][$index][column.item.name]"
-                    :logged-user="loggedUser"
-                    hide-label="true"
-                  />
-                </template>
-              </el-table-column>
-            </el-table-column>
-          </el-table>
-        </template>
+        <ReviewRepeatable 
+          v-else-if="element.type === 'repeatable'"
+          :element="element"
+          :models="models"
+          :reviews="reviews"
+          :logged-user="loggedUser"
+        />
 
         <ReviewFormStep 
           v-else-if="element.type === 'form-steps'"
@@ -97,24 +82,15 @@ export default {
     }
   },
   created: function() {
-    this.reviews = this.data.reviews || this._generateReviews(this.models)
+    this.reviews = this.data.reviews || this._generateReviews(this.models);
+    console.log(this.reviews);
   },
   methods: {
     _generateReviews: function(inObject) {
-      let outObject, value,  key;
-
-      if (typeof inObject !== 'object' || inObject === null) {
-        return { state: 'review' };
+      const outObject = {}
+      for (const key in inObject) {
+        outObject[key] = { state: 'review' }
       }
-
-      outObject = Array.isArray(inObject) ? [] : {};
-
-      for (key in inObject) {
-        value = inObject[key]
-
-        outObject[key] = this._generateReviews(value)
-      }
-
       return outObject;
     },
     _updateStates: function(reviews, newState) {
