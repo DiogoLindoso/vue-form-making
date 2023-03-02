@@ -65,7 +65,7 @@ import GenerateRepeatable from "../Repeatable/GenerateRepeatable.vue";
                       :columns="el.columns"
                       :element="el"
                       :index="elStepIndex"
-                      @click.stop="handleSelectWidget(index, stepIndex, elStepIndex)"
+                      @click.native.stop="handleSelectWidget(index, stepIndex, elStepIndex)"
                     />
                   </template>
 
@@ -74,7 +74,7 @@ import GenerateRepeatable from "../Repeatable/GenerateRepeatable.vue";
                       v-if="el && el.key"
                       class="widget-col widget-view"
                       :class="{ active: selectWidget.key == el.key }"
-                      :key="element.key"
+                      :key="el.key"
                       :element="el"
                       :selected-widget.sync="selectWidget"
                       @click.native.stop="handleSelectWidget(index, stepIndex, elStepIndex)"
@@ -305,6 +305,7 @@ export default {
       console.log({index, stepIndex, elStepIndex}, "#####");
       this.stepIndex = stepIndex;
       this.elStepIndex= elStepIndex;
+      console.log('select >>>', this.data.list[index].steps[stepIndex].list[elStepIndex]);
       this.selectWidget = this.data.list[index].steps[stepIndex].list[elStepIndex];
     },
     handleWidgetDelete(index) {
