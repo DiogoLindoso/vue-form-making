@@ -349,7 +349,11 @@ export default {
             item.columns.forEach(column => getFieldsToBeValidated(column.list))
             continue;
           }
-          if (item.type === 'repeatable') continue
+          if (item.type === 'repeatable') {
+            Object.keys(this.models)
+              .filter(model => model.startsWith(item.model))
+              .forEach(model => fieldsToBeValidated.push(model));
+          }
           fieldsToBeValidated.push(item.model);
         }
       };
@@ -357,8 +361,8 @@ export default {
       const items = this.steps[this.stepIndex].list;
       getFieldsToBeValidated(items);
       if (fieldsToBeValidated.length > 0) {
-        const isValid = await this.validateFields(fieldsToBeValidated);
-        if (!isValid) {
+        const errors = this.validateFields(fieldsToBeValidated);
+        if (errors.length > 0) {
           return;
         }
       }

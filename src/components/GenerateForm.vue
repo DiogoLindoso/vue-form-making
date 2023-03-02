@@ -165,14 +165,14 @@ export default {
     refresh () {
       
     },
-    async validateFields(fields) {
-      const promiseCallback = (resolve) => {
-        this.$refs.generateForm.validateField(fields, errorMessage => {
-          resolve(!errorMessage);
-        });
-      };
-
-      return new Promise(promiseCallback);
+    validateFields(fields) {
+      const errors = [];
+      this.$refs.generateForm.validateField(fields, (message) => {
+        if (message) {
+          errors.push(message);
+        }
+      });
+      return errors;
     }
   },
   watch: {
