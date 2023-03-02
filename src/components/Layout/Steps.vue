@@ -167,7 +167,6 @@ import GenerateRepeatable from "../Repeatable/GenerateRepeatable.vue";
             v-model="models"
             :key="el.key"
             :widget="el"
-            :approved-fields="approvedFields"
             @input-change="onInputChange"
           />
           <template v-else>
@@ -208,7 +207,6 @@ export default {
     "space",
     "value",
     "validateFields",
-    "approvedFields"
   ],
   components: {
     Draggable,

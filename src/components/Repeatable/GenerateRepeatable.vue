@@ -39,7 +39,7 @@ import GenerateFormItem from '../GenerateFormItem.vue';
 				>
 					<el-col v-for="(model, columnIndex) in row" :key="model" :span="columns[columnIndex].span">
 						<GenerateFormItem
-							v-if="!approvedFields.includes(model)"
+							v-if="model"
 							:widget="{...columns[columnIndex].item, model}"
 							v-model="value[model]"
 							hidden-label="true"
@@ -75,8 +75,7 @@ import GenerateFormItem from '../GenerateFormItem.vue';
 export default {
 	props: {
 		widget: Object,
-		value: Object,
-		approvedFields: { type: Array, default: () => [] }
+		value: Object
 	},
 	data: function() {
 		return {
@@ -90,17 +89,20 @@ export default {
 		for (const model of models) {
 			const keyParts = model.split('_');
 			const endKey = keyParts[keyParts.length - 1];
+			const name = keyParts[keyParts.length - 2];
+			const index = this.columns.findIndex(({ item }) => item.name.toLocaleLowerCase() === name);
 			const doesNotContainModelInRows = this.rows.every(row => {
 				const containModelInRow = row.some(key => key.endsWith(endKey));
 				if(containModelInRow) {
-					row.push(model);
+					row.splice(index, 1, model);
 					return false;
 				}
 				return true;
 			});
-
 			if (doesNotContainModelInRows) {
-				this.rows.push([model]);
+				let row = Array(this.columns.length);
+				row.splice(index, 1, model);
+				this.rows.push(row);
 			}
 		}
 	},

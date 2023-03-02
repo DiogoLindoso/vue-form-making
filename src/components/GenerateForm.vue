@@ -41,7 +41,6 @@ import GenerateRepeatable from './Repeatable/GenerateRepeatable.vue';
             @input-change="onInputChange"
             :rules="rules"
             :validateFields="validateFields"
-            :approved-fields="approvedFields"
           />
         </template>
 
@@ -56,7 +55,6 @@ import GenerateRepeatable from './Repeatable/GenerateRepeatable.vue';
           v-model="models"
           :key="item.key"
           :widget="item"
-          :approved-fields="approvedFields"
           @input-change="onInputChange"
         />
 
@@ -87,7 +85,7 @@ export default {
     Grid,
     Steps,
   },
-  props: ['data', 'remote', 'value', 'insite', 'approvedFields'],
+  props: ['data', 'remote', 'value', 'insite' ],
   data () {
     return {
       models: this.value,
