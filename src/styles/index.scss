@@ -764,4 +764,11 @@ $primary-background-color: #ecf5ff;
       display: none;
     }
   }
+
+  .el-form.el-form--label-top {
+    .el-form-item__label {
+      padding: 0 0 0 0.25em !important;
+      line-height: 1.5em;
+    }
+  }
 }
