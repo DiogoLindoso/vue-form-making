@@ -19,7 +19,7 @@ import GenerateFormItem from '../GenerateFormItem.vue';
 						{{ column.item.name }}
 					</span>
 				</el-col>
-				<el-col :span="4">
+				<el-col :span="-1">
 					<div class="actions">
 						<el-tag
 							plain
@@ -49,7 +49,7 @@ import GenerateFormItem from '../GenerateFormItem.vue';
 							hidden-label="true"
 						/>
 					</el-col>
-					<el-col :span="4">
+					<el-col :span="-1">
 						<div class="actions">
 							<el-tag effect="light" type="primary" size="medium" @click="addRow">
 								<i class="el-icon-copy-document"></i>
