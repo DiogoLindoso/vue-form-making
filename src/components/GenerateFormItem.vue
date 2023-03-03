@@ -28,13 +28,16 @@
     </template>
 
     <template v-if="widget.type == 'textarea'">
-      <el-input type="textarea" :rows="widget.options.numberOfRows"
+      <el-input
+        type="textarea"
+        :rows="widget.options.numberOfRows"
         v-model="dataModel"
         :disabled="widget.options.disabled"
         :placeholder="widget.options.placeholder"
         :style="{width: widget.options.width}"
         :maxlength="widget.options.maxlength"
         :show-word-limit="widget.options.showWordLimit"
+        :readonly="widget.options.readonly"
       ></el-input>
     </template>
 
@@ -210,7 +213,7 @@
     </template>
 
     <template v-if="widget.type == 'text'">
-      <span>{{dataModel}}</span>
+      <span>{{widget.options.defaultValue}}</span>
     </template>
     <template v-if="widget.type == 'signature'">
       <Signature

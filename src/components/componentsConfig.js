@@ -31,6 +31,7 @@ export const basicComponents = [
       placeholder: '',
       maxlength: -1,
       showWordLimit: false,
+      readonly: false,
     }
   },
   {

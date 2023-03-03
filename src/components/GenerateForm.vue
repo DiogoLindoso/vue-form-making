@@ -100,7 +100,7 @@ export default {
   methods: {
     generateModle (genList) {
       for (let i = 0; i < genList.length; i++) {
-        if (genList[i].type === 'repeatable') continue;
+        if (['repeatable', 'text'].includes(genList[i].type)) continue;
         
         if(genList[i].type === 'form-steps') {
           genList[i].steps.forEach(item => {
