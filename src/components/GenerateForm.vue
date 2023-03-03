@@ -88,7 +88,7 @@ export default {
   props: ['data', 'remote', 'value', 'insite' ],
   data () {
     return {
-      models: this.value,
+      models: this.value || {},
       rules: {}
     }
   },

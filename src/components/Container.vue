@@ -98,7 +98,7 @@
 
           <cus-dialog
             :visible="previewVisible"
-            @on-close="previewVisible = false"
+            @on-close="previewVisible = false; widgetModels = {} "
             ref="widgetPreview"
             width="1000px"
             form

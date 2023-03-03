@@ -6,6 +6,8 @@ export default {
     { span: 24, item: null, }
   ],
   options: {
+    min: 1,
+    max: 10,
     gutter: 4,
     maxHeight: 350
   }
