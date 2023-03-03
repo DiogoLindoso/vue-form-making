@@ -46,7 +46,6 @@ import GenerateFormItem from '../GenerateFormItem.vue';
 					<el-col v-for="(model, columnIndex) in row" :key="model" :span="element.columns[columnIndex].span">
 						<GenerateFormItem 
 							:widget="getWidgetByColumn(columnIndex)"
-							hidden-label="true"
 						/>
 					</el-col>
 					<el-col :span="-1">
@@ -69,7 +68,7 @@ import GenerateFormItem from '../GenerateFormItem.vue';
 		<el-alert
 			title="Atenção!"
 			type="warning"
-			description="Selecione o(s) tipo(s) da(s) coluna(s)"
+			description="Selecione o(s) tipo(s) da(s) coluna(s) no menu a direita."
 			show-icon
 			:closable="false"
 		/>

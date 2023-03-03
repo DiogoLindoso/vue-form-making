@@ -43,7 +43,6 @@ import GenerateFormItem from '../GenerateFormItem.vue';
 							v-if="model"
 							:widget="{...columns[columnIndex].item, model}"
 							v-model="value[model]"
-							hidden-label="true"
 							@input-change="(value, key) => $emit('input-change', value, key)"
 						/>
 					</el-col>
