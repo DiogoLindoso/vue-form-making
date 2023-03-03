@@ -2,8 +2,8 @@
   <el-form-item
     :prop="widget.model"
     :rules="widget.rules"
-    :label-width="hiddenLabel ? '0' : ''"
-    :label="hiddenLabel ? '': widget.name"
+    :label-width="labelWidth"
+    :label="label"
   >
     <slot />
     <template v-if="widget.type == 'input'" >
@@ -60,7 +60,7 @@
           :label="item.value" v-for="(item, index) in (widget.options.remote ? widget.options.remoteOptions : widget.options.options)" :key="index"
         >
           <template v-if="widget.options.remote">{{item.label}}</template>
-          <template v-else>{{widget.options.showLabel ? item.label : item.value}}</template>
+          <template v-else>{{widget.options.showOptionsLabel ? item.label : item.value}}</template>
         </el-radio>
       </el-radio-group>
     </template>
@@ -76,7 +76,7 @@
           :label="item.value" v-for="(item, index) in (widget.options.remote ? widget.options.remoteOptions : widget.options.options)" :key="index"
         >
           <template v-if="widget.options.remote">{{item.label}}</template>
-          <template v-else>{{widget.options.showLabel ? item.label : item.value}}</template>
+          <template v-else>{{widget.options.showOptionsLabel ? item.label : item.value}}</template>
         </el-checkbox>
       </el-checkbox-group>
     </template>
@@ -143,7 +143,7 @@
         :style="{width: widget.options.width}"
         :filterable="widget.options.filterable"
       >
-        <el-option v-for="item in (widget.options.remote ? widget.options.remoteOptions : widget.options.options)" :key="item.value" :value="item.value" :label="widget.options.showLabel || widget.options.remote?item.label:item.value"></el-option>
+        <el-option v-for="item in (widget.options.remote ? widget.options.remoteOptions : widget.options.options)" :key="item.value" :value="item.value" :label="widget.options.showOptionsLabel || widget.options.remote?item.label:item.value"></el-option>
       </el-select>
     </template>
 
@@ -227,7 +227,7 @@ import FmUpload from './Upload'
 import Signature from './Signature'
 
 export default {
-  props: ['widget', 'value', 'rules', 'remote', 'hiddenLabel'],
+  props: ['widget', 'value', 'rules', 'remote'],
   components: {
     FmUpload,
     Signature,
@@ -268,6 +268,17 @@ export default {
       handler: function (value) {
         this.dataModel = value;
       }
+    }
+  },
+  computed: {
+    showLabel: function() {
+      return this.widget.options.showLabel;
+    },
+    label: function() {
+      return this.showLabel ? this.widget.name : null;
+    },
+    labelWidth: function() {
+      return this.showLabel ? '' : '0';
     }
   }
 }

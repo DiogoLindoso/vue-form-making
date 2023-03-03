@@ -5,6 +5,7 @@ export const basicComponents = [
     type: 'input',
     icon: 'icon-input',
     options: {
+      showLabel: true,
       width: '100%',
       defaultValue: '',
       required: false,
@@ -20,6 +21,7 @@ export const basicComponents = [
     type: 'textarea',
     icon: 'icon-diy-com-textarea',
     options: {
+      showLabel: true,
       width: '100%',
       defaultValue: '',
       required: false,
@@ -34,6 +36,7 @@ export const basicComponents = [
     type: 'number',
     icon: 'icon-number',
     options: {
+      showLabel: true,
       width: '',
       required: false,
       defaultValue: 0,
@@ -50,7 +53,8 @@ export const basicComponents = [
     options: {
       inline: false,
       defaultValue: '',
-      showLabel: false,
+      showLabel: true,
+      showOptionsLabel: false,
       options: [
         {
           value: 'Option 1',
@@ -83,7 +87,8 @@ export const basicComponents = [
     options: {
       inline: false,
       defaultValue: [],
-      showLabel: false,
+      showLabel: true,
+      showOptionsLabel: false,
       options: [
         {
           value: 'Option 1'
@@ -111,6 +116,7 @@ export const basicComponents = [
     type: 'time',
     icon: 'icon-time',
     options: {
+      showLabel: true,
       defaultValue: '21:19:56',
       readonly: false,
       disabled: false,
@@ -130,6 +136,7 @@ export const basicComponents = [
     type: 'date',
     icon: 'icon-date',
     options: {
+      showLabel: true,
       defaultValue: '',
       readonly: false,
       disabled: false,
@@ -149,6 +156,7 @@ export const basicComponents = [
     type: 'rate',
     icon: 'icon-pingfen1',
     options: {
+      showLabel: true,
       defaultValue: null,
       max: 5,
       disabled: false,
@@ -160,6 +168,7 @@ export const basicComponents = [
     type: 'color',
     icon: 'icon-color',
     options: {
+      showLabel: true,
       defaultValue: '',
       disabled: false,
       showAlpha: false,
@@ -170,13 +179,14 @@ export const basicComponents = [
     type: 'select',
     icon: 'icon-select',
     options: {
+      showOptionsLabel: false,
+      showLabel: true,
       defaultValue: '',
       multiple: false,
       disabled: false,
       clearable: false,
       placeholder: '',
       required: false,
-      showLabel: false,
       width: '',
       options: [
         {
@@ -202,6 +212,7 @@ export const basicComponents = [
     type: 'switch',
     icon: 'icon-switch',
     options: {
+      showLabel: true,
       defaultValue: false,
       required: false,
       disabled: false,
@@ -211,6 +222,7 @@ export const basicComponents = [
     type: 'slider',
     icon: 'icon-slider',
     options: {
+      showLabel: true,
       defaultValue: 0,
       disabled: false,
       required: false,
@@ -226,6 +238,7 @@ export const basicComponents = [
     type: 'text',
     icon: 'icon-wenzishezhi-',
     options: {
+      showLabel: true,
       defaultValue: 'This is a text',
       customClass: '',
     }
@@ -244,6 +257,7 @@ export const advanceComponents = [
     type: 'imgupload',
     icon: 'icon-tupian',
     options: {
+      showLabel: true,
       defaultValue: [],
       size: {
         width: 100,
@@ -267,6 +281,7 @@ export const advanceComponents = [
     type: 'editor',
     icon: 'icon-fuwenbenkuang',
     options: {
+      showLabel: true,
       defaultValue: '',
       width: ''
     }
@@ -275,6 +290,7 @@ export const advanceComponents = [
     type: 'cascader',
     icon: 'icon-jilianxuanze',
     options: {
+      showLabel: true,
       defaultValue: [],
       width: '',
       placeholder: '',
@@ -294,6 +310,7 @@ export const advanceComponents = [
     type: 'signature',
     icon: 'icon-ic',
     options: {
+      showLabel: true,
       defaultValue: '',
       width: '100%',
       height: '100%',

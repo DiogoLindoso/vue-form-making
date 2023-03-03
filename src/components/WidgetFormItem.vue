@@ -2,8 +2,8 @@
   <el-form-item class="widget-view "
       v-if="element && element.key"
       :class="{active: selectWidget.key == element.key, 'is_req': element.options.required}"
-      :label="showLabel ? element.name : ''"
-      :label-width="showLabel ? '': '0'"
+      :label-width="labelWidth"
+      :label="label"
       @click.native.stop="handleSelectWidget(index)"
     >
         <template v-if="element.type == 'input'">
@@ -47,7 +47,7 @@
               :label="item.value" v-for="(item, index) in element.options.options" :key="item.value + index"
 
             >
-              {{element.options.showLabel ? item.label : item.value}}
+              {{element.options.showOptionsLabel ? item.label : item.value}}
             </el-radio>
           </el-radio-group>
         </template>
@@ -61,7 +61,7 @@
               :style="{display: element.options.inline ? 'inline-block' : 'block'}"
               :label="item.value" v-for="(item, index) in element.options.options" :key="item.value + index"
             >
-              {{element.options.showLabel ? item.label : item.value}}
+              {{element.options.showOptionsLabel ? item.label : item.value}}
             </el-checkbox>
           </el-checkbox-group>
         </template>
@@ -125,7 +125,7 @@
             :placeholder="element.options.placeholder"
             :style="{width: element.options.width}"
           >
-            <el-option v-for="item in element.options.options" :key="item.value" :value="item.value" :label="element.options.showLabel?item.label:item.value"></el-option>
+            <el-option v-for="item in element.options.options" :key="item.value" :value="item.value" :label="element.options.showOptionsLabel?item.label:item.value"></el-option>
           </el-select>
         </template>
 
@@ -288,8 +288,14 @@ export default {
     },
   },
   computed: {
-    showLabel() {
-      return this.element.type != 'repeatable';
+    showLabel: function() {
+      return this.element.options.showLabel;
+    },
+    label: function() {
+      return this.showLabel ? this.element.name : null;
+    },
+    labelWidth: function() {
+      return this.showLabel ? '' : '0';
     }
   },
   watch: {

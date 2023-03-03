@@ -69,6 +69,12 @@ import ConfigRepeatable from './Repeatable/ConfigRepeatable.vue';
           >
         </el-switch>
       </el-form-item>
+      <el-form-item label="Mostrar Label das opções" v-if="Object.keys(data.options).indexOf('showOptionsLabel')>=0">
+        <el-switch
+            v-model="data.options.showOptionsLabel"
+          >
+        </el-switch>
+      </el-form-item>
       <el-form-item :label="$t('fm.config.widget.option')" v-if="Object.keys(data.options).indexOf('options')>=0">
         <el-radio-group v-model="data.options.remote" size="mini" style="margin-bottom:10px;">
           <el-radio-button :label="false">{{$t('fm.config.widget.staticData')}}</el-radio-button>
@@ -99,8 +105,8 @@ import ConfigRepeatable from './Repeatable/ConfigRepeatable.vue';
                     :label="item.value"
                     style="margin-right: 5px;"
                   >
-                    <el-input :style="{'width': data.options.showLabel? '90px': '180px' }" size="mini" v-model="item.value"></el-input>
-                    <el-input style="width:90px;" size="mini" v-if="data.options.showLabel" v-model="item.label"></el-input>
+                    <el-input :style="{'width': data.options.showOptionsLabel? '90px': '180px' }" size="mini" v-model="item.value"></el-input>
+                    <el-input style="width:90px;" size="mini" v-if="data.options.showOptionsLabel" v-model="item.label"></el-input>
                     <!-- <input v-model="item.value"/> -->
                   </el-radio>
                   <i class="drag-item" style="font-size: 16px;margin: 0 5px;cursor: move;"><i class="iconfont icon-icon_bars"></i></i>
@@ -124,8 +130,8 @@ import ConfigRepeatable from './Repeatable/ConfigRepeatable.vue';
                     :label="item.value"
                     style="margin-right: 5px;"
                   >
-                    <el-input :style="{'width': data.options.showLabel? '90px': '180px' }" size="mini" v-model="item.value"></el-input>
-                    <el-input style="width:90px;" size="mini" v-if="data.options.showLabel" v-model="item.label"></el-input>
+                    <el-input :style="{'width': data.options.showOptionsLabel? '90px': '180px' }" size="mini" v-model="item.value"></el-input>
+                    <el-input style="width:90px;" size="mini" v-if="data.options.showOptionsLabel" v-model="item.label"></el-input>
                   </el-checkbox>
                   <i class="drag-item" style="font-size: 16px;margin: 0 5px;cursor: move;"><i class="iconfont icon-icon_bars"></i></i>
                   <el-button @click="handleOptionsRemove(index)" circle plain type="danger" size="mini" icon="el-icon-minus" style="padding: 4px;margin-left: 5px;"></el-button>

@@ -64,7 +64,6 @@ import Draggable from 'vuedraggable'
 import { basicComponents } from '../componentsConfig.js'
 
 export default {
-  name: 'multiple-input-config',
   components: { Draggable },
   props: {
     data: { type: Object }
@@ -95,7 +94,7 @@ export default {
     },
     handleSelectTypeColumn (column, index) {
       const item = this.basicComponents[index];
-      column.item = {...item, options: { ...item.options }};
+      column.item = {...item, options: { ...item.options, showLabel: false }};
       if (column.item.type == 'number') {
         column.item.options.min = 0;
         column.item.options.max = 1;
