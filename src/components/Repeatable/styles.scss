@@ -4,13 +4,21 @@
 	}
 
 	.actions {
+		width: 72px;
 		display: flex;
 		justify-content: flex-end;
-		.el-tag ~ .el-tag { margin-left: 4px;}
-		.el-tag:hover {
-			cursor: pointer;
-			filter: brightness(.85);
+
+		.el-tag {
+
+			&:hover {
+				cursor: pointer;
+				filter: brightness(.85);
+			}
+
+			&.disabled:hover { cursor: not-allowed; }
 		}
+
+		.el-tag ~ .el-tag { margin-left: 4px;}
 	}
 
 	.repeatable-header {
@@ -51,8 +59,6 @@
 		}
 		.el-row:last-child { border-bottom: none; }
 
-		&::-webkit-scrollbar {
-			display: none;
-		}
+		&::-webkit-scrollbar { display: none; }
 	}
 }
