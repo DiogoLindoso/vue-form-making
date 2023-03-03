@@ -23,6 +23,7 @@ export const basicComponents = [
     options: {
       showLabel: true,
       width: '100%',
+      numberOfRows: 5,
       defaultValue: '',
       required: false,
       disabled: false,

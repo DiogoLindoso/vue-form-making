@@ -19,6 +19,10 @@ import ConfigRepeatable from './Repeatable/ConfigRepeatable.vue';
         <el-input v-model="data.options.height"></el-input>
       </el-form-item>
 
+      <el-form-item :label="$t('fm.config.widget.numberOfRows')" v-if="Object.keys(data.options).indexOf('numberOfRows')>=0">
+        <el-input-number v-model="data.options.numberOfRows" :min="1" :max="100" :step="1"></el-input-number>
+      </el-form-item>
+
       <el-form-item :label="$t('fm.config.widget.size')" v-if="Object.keys(data.options).indexOf('size')>=0">
         {{$t('fm.config.widget.width')}} <el-input style="width: 90px;" type="number" v-model.number="data.options.size.width"></el-input>
         {{$t('fm.config.widget.height')}} <el-input style="width: 90px;" type="number" v-model.number="data.options.size.height"></el-input>

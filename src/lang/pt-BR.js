@@ -184,7 +184,8 @@ export default {
           "showWordLimit": "Mostrar limite de palavras",
           "maxlength": "Comprimento máximo",
           "simple": "Simples",
-          "maxHeight": "Altura Máxima"
+          "maxHeight": "Altura Máxima",
+          numberOfRows: 'Número de linhas',
         }
       },
       upload: {

@@ -184,7 +184,8 @@ export default {
         showWordLimit: 'Show word limit',
         maxlength: 'Max length',
         simple: 'Simple',
-        maxHeight: "Max Height"
+        maxHeight: "Max Height",
+        numberOfRows: 'Number of Rows',
       }
     },
     upload: {
