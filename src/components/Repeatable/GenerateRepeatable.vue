@@ -13,13 +13,14 @@ import GenerateFormItem from '../GenerateFormItem.vue';
 						{{ column.item.name }}
 					</span>
 				</el-col>
-				<el-col :span="4">
+				<el-col :span="-1">
 					<div class="actions">
 						<el-tag
 							plain
 							type="info"
 							size="medium"
-							@click="newRow"
+							@click="newRow()"
+							:class="{ disabled: disabledAddButton }"
 						>
 							<i class="el-icon-plus"></i>
 						</el-tag>
@@ -46,12 +47,23 @@ import GenerateFormItem from '../GenerateFormItem.vue';
 							@input-change="(value, key) => $emit('input-change', value, key)"
 						/>
 					</el-col>
-					<el-col :span="4">
+					<el-col :span="-1">
 						<div class="actions">
-							<el-tag effect="light" type="primary" size="medium" @click="cloneRow(rowIndex)">
+							<el-tag
+								effect="light"
+								type="primary"
+								size="medium" @click="cloneRow(rowIndex)"
+								:class="{ disabled: disabledAddButton }"
+							>
 								<i class="el-icon-copy-document"></i>
 							</el-tag>
-							<el-tag effect="light" type="danger" size="medium" @click="deleteRow(rowIndex)">
+							<el-tag
+								effect="light"
+								type="danger"
+								size="medium"
+								@click="deleteRow(rowIndex)"
+								:class="{ disabled: disabledDeleteButton }"
+							>
 								<i class="el-icon-minus"></i>
 							</el-tag>
 						</div>
@@ -124,9 +136,11 @@ export default {
 			});
 		},
 		newRow: function() {
+			if (this.disabledAddButton) return;
 			this.rows.push(this.createRow());
 		},
 		deleteRow: function(index) {
+			if (this.disabledDeleteButton) return;
 			const [row] = this.rows.splice(index, 1);
 			row.forEach(this.deleteModel);
 		},
@@ -134,6 +148,7 @@ export default {
 			delete this.value[model];
 		},
 		cloneRow: function(index) {
+			if (this.disabledAddButton) return;
 			const clonedRow = this.rows[index];
 			const newRow = this.createRow();
 			for (let index = 0; index < newRow.length; index++) {
@@ -154,6 +169,16 @@ export default {
 		},
 		maxHeight: function() {
 			return `${this.widget.options.maxHeight}px`;
+		},
+		disabledDeleteButton: function() {
+			return this.rows.length <= this.widget.options.min;
+		},
+		disabledAddButton: function() {
+			const max = this.widget.options.max;
+			const min = this.widget.options.min;
+			if (max == 0) return false;
+			if (max < min) return true;
+			return this.rows.length >= max;
 		}
 	}
 }
