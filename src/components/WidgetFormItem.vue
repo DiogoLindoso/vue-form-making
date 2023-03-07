@@ -190,7 +190,7 @@
         </template>
 
         <template v-if="element.type == 'text'">
-          <span>{{element.options.defaultValue}}</span>
+          <span>{{element.options.value}}</span>
         </template>
         <template v-if="element.type == 'signature'">
           <Signature 

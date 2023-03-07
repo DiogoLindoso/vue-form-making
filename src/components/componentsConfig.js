@@ -240,8 +240,7 @@ export const basicComponents = [
     type: 'text',
     icon: 'icon-wenzishezhi-',
     options: {
-      showLabel: true,
-      defaultValue: 'This is a text',
+      value: 'This is a text',
       customClass: '',
     }
   }

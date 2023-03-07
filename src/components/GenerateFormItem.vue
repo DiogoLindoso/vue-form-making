@@ -213,7 +213,7 @@
     </template>
 
     <template v-if="widget.type == 'text'">
-      <span>{{widget.options.defaultValue}}</span>
+      <span>{{widget.options.value}}</span>
     </template>
     <template v-if="widget.type == 'signature'">
       <Signature
