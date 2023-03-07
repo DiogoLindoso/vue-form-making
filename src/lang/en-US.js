@@ -193,7 +193,12 @@ export default {
         modalContent: 'Modal Content',
         objectFit: 'Object Fit',
         uploadButton: 'Click to upload',
-        uploadDescription: 'Clique no botão acima para selecionar um arquivo'
+        uploadDescription: 'Clique no botão acima para selecionar um arquivo',
+        text: {
+          title: 'Title',
+          subtitle: 'Sub Title',
+          description: 'Description'
+        }
       }
     },
     upload: {

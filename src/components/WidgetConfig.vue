@@ -387,9 +387,22 @@ import ConfigImage from './Layout/Image/ConfigImage.vue'
         </el-form-item>
       </template>
 
-      <el-form-item v-if="data.type == 'text'" :label="$t('fm.config.widget.value')">
-        <el-input v-model.number="data.options.value" />
-      </el-form-item>
+      <template v-if="data.type == 'text'">
+        <el-form-item :label="$t('fm.config.widget.value')">
+          <el-input v-model.number="data.options.value" />
+        </el-form-item>
+
+        <el-form-item :label="$t('fm.config.widget.type')">
+          <el-select v-model.number="data.options.type">
+            <el-option
+              v-for="value in ['title', 'subtitle', 'description']"
+              :value="value"
+              :label="$t(`fm.config.widget.text.${value}`)"
+              :key="value"
+            />
+          </el-select>
+        </el-form-item>
+      </template>
 
       <ConfigRepeatable
         v-if="data.type == 'repeatable'"

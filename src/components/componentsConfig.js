@@ -243,7 +243,7 @@ export const basicComponents = [
     icon: 'icon-wenzishezhi-',
     options: {
       value: 'This is a text',
-      customClass: '',
+      type: 'description',
     }
   }
 ]

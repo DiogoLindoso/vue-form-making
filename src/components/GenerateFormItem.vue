@@ -218,7 +218,9 @@ import ImageWidget from './Layout/Image';
     </template>
 
     <template v-if="widget.type == 'text'">
-      <span>{{widget.options.value}}</span>
+      <h2 class="text-element" v-if="widget.options.type == 'title'">{{ widget.options.value }}</h2>
+      <h3 class="text-element" v-else-if="widget.options.type == 'subtitle'">{{ widget.options.value }}</h3>
+      <span class="text-element" v-else>{{widget.options.value}}</span>
     </template>
     <template v-if="widget.type == 'signature'">
       <Signature
