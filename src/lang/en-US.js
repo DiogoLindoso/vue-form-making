@@ -27,7 +27,8 @@ export default {
         signature: 'Signature',
         'form-steps': 'Form Steps',
         repeatable: 'Repeatable',
-        dialog: 'Dialog'
+        dialog: 'Dialog',
+        image: 'Image'
       },
       basic: {
         title: 'Basic Component',
@@ -189,7 +190,10 @@ export default {
         numberOfRows: 'Number of Rows',
         buttonText: 'Button Text',
         modalTitle: 'Modal Title',
-        modalContent: 'Modal Content'
+        modalContent: 'Modal Content',
+        objectFit: 'Object Fit',
+        uploadButton: 'Click to upload',
+        uploadDescription: 'Clique no botão acima para selecionar um arquivo'
       }
     },
     upload: {

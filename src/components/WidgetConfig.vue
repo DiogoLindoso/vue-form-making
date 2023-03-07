@@ -1,6 +1,7 @@
 <script setup>
 import ConfigRepeatable from './Repeatable/ConfigRepeatable.vue';
 import ConfigDialog from './Layout/Dialog/ConfigDialog.vue';
+import ConfigImage from './Layout/Image/ConfigImage.vue'
 </script>
 
 <template>
@@ -17,7 +18,8 @@ import ConfigDialog from './Layout/Dialog/ConfigDialog.vue';
       </el-form-item>
 
       <el-form-item :label="$t('fm.config.widget.height')" v-if="Object.keys(data.options).indexOf('height')>=0">
-        <el-input v-model="data.options.height"></el-input>
+        <el-input-number v-if="data.type == 'image'" v-model="data.options.height" :min="80" :step="10" />
+        <el-input v-else v-model="data.options.height"></el-input>
       </el-form-item>
 
       <el-form-item :label="$t('fm.config.widget.numberOfRows')" v-if="Object.keys(data.options).indexOf('numberOfRows')>=0">
@@ -396,6 +398,11 @@ import ConfigDialog from './Layout/Dialog/ConfigDialog.vue';
 
       <ConfigDialog 
         v-if="data.type == 'dialog'"
+        :data.sync="data"
+      />
+
+      <ConfigImage 
+        v-if="data.type == 'image'"
         :data.sync="data"
       />
     </el-form>

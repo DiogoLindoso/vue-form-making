@@ -1,5 +1,6 @@
 import repeatableConfig from './Repeatable/config';
 import dialogConfig from './Layout/Dialog/config';
+import imageConfig  from './Layout/Image/config';
 
 export const basicComponents = [
   {
@@ -365,5 +366,6 @@ export const layoutComponents = [
       simple: false,
       space: '',
     }
-  }
+  },
+  imageConfig
 ]
