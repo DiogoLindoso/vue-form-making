@@ -115,7 +115,8 @@ export default {
           } else {
             if (genList[i].type === 'blank') {
               this.$set(this.models, genList[i].model, genList[i].options.defaultType === 'String' ? '' : (genList[i].options.defaultType === 'Object' ? {} : []))
-            } else {
+            }
+            if (Object.keys(genList[i].options).indexOf('defaultValue') >= 0) {
               this.models[genList[i].model] = genList[i].options.defaultValue
             }      
           }

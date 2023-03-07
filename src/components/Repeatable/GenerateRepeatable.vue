@@ -95,10 +95,13 @@ export default {
 	},
 	created: function() {
 		const model = this.widget.model;
+		console.log(this.value);
 		const models = Object.keys(this.value).filter(key => key.startsWith(model));
+		console.log('models', models);
 
 		if (models.length == 0) {
 			for (let i = 0; i < this.widget.options.min; i++) {
+				console.log('i >> ', i);
 				setTimeout(this.newRow, i * 25);
 			}
 		}

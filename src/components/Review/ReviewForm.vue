@@ -37,21 +37,25 @@ import ReviewFormStep from "./ReviewFormStep.vue";
           </el-row>
         </template>
 
-        <ReviewRepeatable 
-          v-else-if="element.type === 'repeatable'"
-          :element="element"
-          :models="models"
-          :reviews="reviews"
-          :logged-user="loggedUser"
-        />
+        <template v-else-if="element.type === 'repeatable'">
+          <ReviewRepeatable 
+            :key="element.key"
+            :element="element"
+            :models="models"
+            :reviews="reviews"
+            :logged-user="loggedUser"
+          />
+        </template>
 
-        <ReviewFormStep 
-          v-else-if="element.type === 'form-steps'"
-          :element="element"
-          :models="models"
-          :reviews="reviews"
-          :logged-user="loggedUser"
-        />
+        <template v-else-if="element.type === 'form-steps'">
+          <ReviewFormStep 
+            :key="element.key"
+            :element="element"
+            :models="models"
+            :reviews="reviews"
+            :logged-user="loggedUser"
+          />
+        </template>
 
         <template v-else>
           <ReviewFormItem
