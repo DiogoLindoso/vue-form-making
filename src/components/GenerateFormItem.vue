@@ -1,3 +1,7 @@
+<script setup>
+import DialogWidget from './Layout/Dialog';
+</script>
+
 <template>
   <el-form-item
     :prop="widget.model"
@@ -222,6 +226,11 @@
         :height="widget.options.height" 
        />
     </template>
+
+    <DialogWidget 
+      v-if="widget.type == 'dialog'"
+      :element="widget"
+    />
   </el-form-item>
 </template>
 

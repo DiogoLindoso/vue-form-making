@@ -1,3 +1,7 @@
+<script setup>
+import DialogWidget from './Layout/Dialog';
+</script>
+
 <template>
   <el-form-item class="widget-view "
       v-if="element && element.key"
@@ -200,12 +204,17 @@
            />
         </template>
 
-        <template v-else-if="element.type == 'repeatable'">
+        <template v-if="element.type == 'repeatable'">
           <multiple-input-render 
             :widget.sync="element"
             :select.sync="selectWidget"
           />
         </template>
+
+        <DialogWidget
+          v-if="element.type == 'dialog'"
+          :element="element"
+        />
 
         <div class="widget-view-action" v-if="selectWidget.key == element.key">
           <i class="iconfont icon-icon_clone" @click.stop="handleWidgetClone(index)"></i>
