@@ -1,5 +1,6 @@
 <script setup>
 import DialogWidget from './Layout/Dialog';
+import ImageWidget from './Layout/Image';
 </script>
 
 <template>
@@ -213,6 +214,11 @@ import DialogWidget from './Layout/Dialog';
 
         <DialogWidget
           v-if="element.type == 'dialog'"
+          :element="element"
+        />
+
+        <ImageWidget
+          v-if="element.type == 'image'"
           :element="element"
         />
 
