@@ -219,15 +219,15 @@ export default {
     },
     basicFields: {
       type: Array,
-      default: () => ['input', 'textarea', 'number', 'radio', 'checkbox', 'time', 'date', 'rate', 'color', 'select', 'switch', 'slider', 'text']
+      default: () => basicComponents.map(component => component.type)
     },
     advanceFields: {
       type: Array,
-      default: () => ['blank', 'imgupload', 'editor', 'cascader', 'signature', 'repeatable']
+      default: () => advanceComponents.map(component => component.type)
     },
     layoutFields: {
       type: Array,
-      default: () => ['grid', 'form-steps']
+      default: () => layoutComponents.map(component => component.type)
     }
   },
   data () {
