@@ -26,7 +26,8 @@ export default {
         divider: 'Divider',
         signature: 'Signature',
         'form-steps': 'Form Steps',
-        repeatable: 'Repeatable'
+        repeatable: 'Repeatable',
+        dialog: 'Dialog'
       },
       basic: {
         title: 'Basic Component',
@@ -186,6 +187,9 @@ export default {
         simple: 'Simple',
         maxHeight: "Max Height",
         numberOfRows: 'Number of Rows',
+        buttonText: 'Button Text',
+        modalTitle: 'Modal Title',
+        modalContent: 'Modal Content'
       }
     },
     upload: {

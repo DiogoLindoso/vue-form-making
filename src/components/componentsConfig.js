@@ -1,4 +1,5 @@
 import repeatableConfig from './Repeatable/config';
+import dialogConfig from './Layout/Dialog/config';
 
 export const basicComponents = [
   {
@@ -319,7 +320,8 @@ export const advanceComponents = [
       disabled: false,
     }
   },
-  repeatableConfig
+  repeatableConfig,
+  dialogConfig
 ]
 
 export const layoutComponents = [

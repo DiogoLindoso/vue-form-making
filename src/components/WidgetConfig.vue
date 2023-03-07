@@ -1,5 +1,6 @@
 <script setup>
 import ConfigRepeatable from './Repeatable/ConfigRepeatable.vue';
+import ConfigDialog from './Layout/Dialog/ConfigDialog.vue';
 </script>
 
 <template>
@@ -390,6 +391,11 @@ import ConfigRepeatable from './Repeatable/ConfigRepeatable.vue';
 
       <ConfigRepeatable
         v-if="data.type == 'repeatable'"
+        :data.sync="data"
+      />
+
+      <ConfigDialog 
+        v-if="data.type == 'dialog'"
         :data.sync="data"
       />
     </el-form>
