@@ -195,15 +195,22 @@ import ImageWidget from './Layout/Image';
         </template>
 
         <template v-if="element.type == 'text'">
-          <h2 class="text-element" v-if="element.options.type == 'title'">{{ element.options.value }}</h2>
-          <h3 class="text-element" v-else-if="element.options.type == 'subtitle'">{{ element.options.value }}</h3>
-          <span class="text-element" v-else>{{element.options.value}}</span>
+          <span
+            class="text-element"
+            :class="{
+              title: element.options.type == 'title',
+              subtitle: element.options.type == 'subtitle',
+            }"
+            :style="{ textAlign: element.options.textAlign }"
+          >
+            {{element.options.value}}
+          </span>
         </template>
         <template v-if="element.type == 'signature'">
           <Signature 
             v-model="element.options.defaultValue"
-            :width="element.options.width" 
-            :height="element.options.height" 
+            :height="element.options.height"
+            :name="element.name"
            />
         </template>
 

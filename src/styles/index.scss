@@ -776,5 +776,15 @@ $primary-background-color: #ecf5ff;
     margin-top: 0;
     margin-bottom: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: block;
+    text-align: right;
+    &.title {
+      font-size: 1.85em;
+      font-weight: bold;
+    }
+    &.subtitle {
+      font-size: 1.5em;
+      font-weight: 500;
+    }
   }
 }

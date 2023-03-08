@@ -402,6 +402,17 @@ import ConfigImage from './Layout/Image/ConfigImage.vue'
             />
           </el-select>
         </el-form-item>
+
+        <el-form-item :label="$t('fm.config.widget.justify')">
+          <el-select v-model.number="data.options.textAlign">
+            <el-option
+              v-for="value in ['left', 'center', 'right']"
+              :value="value"
+              :label="$t(`fm.config.widget.${value}`)"
+              :key="value"
+            />
+          </el-select>
+        </el-form-item>
       </template>
 
       <ConfigRepeatable

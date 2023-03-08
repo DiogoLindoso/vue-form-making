@@ -1,15 +1,26 @@
 <template>
-  <div>
-    <VueSignaturePad
-      id="signature"
-      :width="width"
-      :height="height"
-      ref="signaturePad"
-      :options="{ onEnd }"
-      :value="value"
-    />
-    <div>
-      <button @click.prevent="clear">Apagar</button>
+  <div class="signature" :style="{ height }">
+    <div class="signature-header">
+      <el-button
+        plain
+        type="danger"
+        style="float: right;"
+        icon="el-icon-delete"
+        @click="clear"
+      >
+        clear
+      </el-button>
+    </div>
+    <div class="signature-body">
+      <VueSignaturePad
+        ref="signaturePad"
+        height="100%"
+        :options="{ onEnd }"
+        :value="value"
+      />
+    </div>
+    <div class="signature-footer">
+      <span>{{ name }}</span>
     </div>
   </div>
 </template>
@@ -24,18 +35,20 @@ export default {
     value: {
       default: "",
     },
-    width: {
-      String,
-      default: "200px",
-    },
     height: {
       String,
       default: "200px",
     },
+    name: String
   },
   watch:{
     value:function(val){
       if(!val) this.$refs.signaturePad.clearSignature();
+    }
+  },
+  mounted: function() {
+    if (this.value) {
+      this.$refs.signaturePad.fromDataURL(this.value);
     }
   },
   methods: {
@@ -56,8 +69,25 @@ export default {
 };
 </script>
 <style scoped>
-#signature {
-  border: 3px solid grey;
-  border-radius: 5px;
+.signature {
+  position: relative;
+  width: 100%;
+}
+
+.signature-header {
+  height: 32px;
+}
+.signature-body {
+  border-bottom: 3px solid grey;
+  height: calc(100% - 64px);
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+.signature-footer {
+  height: 32px;
+  margin-top: 8px;
+  text-align: center;
+  user-select: none;
 }
 </style>

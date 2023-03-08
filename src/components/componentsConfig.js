@@ -244,6 +244,7 @@ export const basicComponents = [
     options: {
       value: 'This is a text',
       type: 'description',
+      textAlign: 'center'
     }
   }
 ]
@@ -313,10 +314,8 @@ export const advanceComponents = [
     type: 'signature',
     icon: 'icon-ic',
     options: {
-      showLabel: true,
       defaultValue: '',
-      width: '100%',
-      height: '100%',
+      width: '150px',
       required: false,
       disabled: false,
     }

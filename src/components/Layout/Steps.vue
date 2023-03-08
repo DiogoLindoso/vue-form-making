@@ -144,7 +144,7 @@ import GenerateRepeatable from "../Repeatable/GenerateRepeatable.vue";
       <div
         ref="step"
         v-for="(stepElement, stepIndex) in steps"
-        :key="stepIndex"
+        :key="generateKey(stepIndex)"
         v-show="active === stepIndex"
         type="flex"
         style="position: static; padding: 1em; 0"
@@ -374,6 +374,13 @@ export default {
         if (this.active++ >= this.steps.length -1) this.active = 0;
       }
     },
+    generateKey: function(index) {
+      const isActive = index === this.active;
+      if (isActive) {
+        return `${index}_active`
+      }
+      return index;
+    }
   },
 };
 </script>
