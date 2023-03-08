@@ -6,10 +6,10 @@ import ReviewRepeatable from '../Repeatable/ReviewRepeatable.vue';
 <template>
 	<div>
 		<el-steps :active="stepActive" finish-status="success">
-			<el-step v-for="step in element.steps" :title="step.title" />
+			<el-step v-for="(step, index) in element.steps" :key="index" :title="step.title" />
 		</el-steps>
 		<div>
-			<div v-if="index === stepActive" v-for="(step, index) in element.steps">
+			<div v-if="index === stepActive" v-for="(step, index) in element.steps" :key="index">
 				<template v-for="subElement in step.list">
 					<template v-if="subElement.type === 'grid'">
 						<el-row
@@ -36,13 +36,15 @@ import ReviewRepeatable from '../Repeatable/ReviewRepeatable.vue';
 						</el-row>
 					</template>
 
-					<ReviewRepeatable 
-						v-else-if="subElement.type === 'repeatable'"
-						:element="subElement"
-						:models="models"
-						:reviews="reviews"
-						:logged-user="loggedUser"
-					/>
+					<template v-else-if="subElement.type === 'repeatable'">
+						<ReviewRepeatable 
+							:key="subElement.key"
+							:element="subElement"
+							:models="models"
+							:reviews="reviews"
+							:logged-user="loggedUser"
+						/>
+					</template>
 
 					<template v-else>
 						<ReviewFormItem
