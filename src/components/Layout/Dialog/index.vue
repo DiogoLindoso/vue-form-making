@@ -32,3 +32,12 @@ export default {
 	}
 }
 </script>
+
+<style scoped lang="scss">
+.dialog-wrapper {
+	.el-dialog__body code {
+		background-color: transparent;
+		color: #000;
+	}
+}
+</style>
